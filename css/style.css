@@ -184,6 +184,32 @@ nav ul li a:hover {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+.hero-content .cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #e63946;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hero-content .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: #c1121f;
+}
+
+.hero-content .cta-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* About Section */
 .about-section {
     background-color: var(--white);
@@ -238,8 +264,9 @@ nav ul li a:hover {
 
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
     position: relative;
     z-index: 1;
 }
@@ -250,6 +277,8 @@ nav ul li a:hover {
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.5s ease-in-out;
+    opacity: 1;
 }
 
 .menu-item:hover {
@@ -257,8 +286,18 @@ nav ul li a:hover {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
+.menu-item.additional-menu {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.menu-item.additional-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .menu-img {
-    height: 200px;
+    height: 300px;
     overflow: hidden;
 }
 
