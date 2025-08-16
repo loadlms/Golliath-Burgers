@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golliath Burgers</title>
+    <link rel="icon" type="image/png" href="img/logoGB-removebg-preview.png">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/carrinho.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -12,20 +14,29 @@
     <!-- Header com navegação -->
     <header style="background-image: url('img/cabeçalho.png'); background-size: cover;">
         <div class="logo">
-            <img src="img/logoGB.PNG" alt="Golliath Burgers Logo">
+            <a href="#home">
+                <img src="img/logoGB.PNG" alt="Golliath Burgers Logo">
+            </a>
         </div>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#menu">Cardápio</a></li>
                 <li><a href="#about">Sobre Nós</a></li>
+                <li><a href="#cadastro">Cadastro</a></li>
                 <li><a href="#location">Localização</a></li>
             </ul>
         </nav>
-        <div class="whatsapp-link">
-            <a href="https://wa.me/5511957548091" target="_blank">
-                <i class="fab fa-whatsapp"></i> Peça pelo WhatsApp
-            </a>
+        <div class="header-actions">
+            <div class="cart-link" id="cart-icon" onclick="openCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+            <div class="whatsapp-link">
+                <a href="https://wa.me/5511957548091" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Peça pelo WhatsApp
+                </a>
+            </div>
         </div>
     </header>
 
@@ -142,9 +153,12 @@
             </div>
         </div>
     </section>
-    <div class="menu-cta">
-        <button id="expand-menu" class="cta-button">Cardápio Completo</button>
-    </div>
+                <div class="menu-cta">
+                <button id="expand-menu" class="cta-button">Cardápio Completo</button>
+                <button id="refresh-menu" class="refresh-btn" title="Atualizar cardápio">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
     <!-- Informações Comerciais -->
     <section id="location" class="info-section">
         <div class="container">
@@ -212,6 +226,8 @@
         </div>
     </section>
 
+
+
     <!-- WhatsApp Integration CTA -->
     <section class="whatsapp-section">
         <div class="container">
@@ -234,7 +250,7 @@
                     <p>O lar dos mais saborosos hambúrgueres da cidade!</p>
                 </div>
                 <div class="footer-links">
-                    <h3>Links Rápidos</h3>
+                    <h3>LINKS RÁPIDOS</h3>
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#menu">Cardápio</a></li>
@@ -243,9 +259,10 @@
                     </ul>
                 </div>
                 <div class="footer-social">
-                    <h3>Redes Sociais</h3>
+                    <h3>POR AQUI TAMBÉM</h3>
                     <div class="social-icons">
                         <a href="https://instagram.com/golliathburgers" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.ifood.com.br/delivery/osasco-sp/golliath-burgers-alianca/fcc5808d-9cdd-49df-8eb4-0ca50031caf2" target="_blank"><i class="fas fa-utensils"></i></a>
                     </div>
                 </div>
             </div>
@@ -255,6 +272,8 @@
         </div>
     </footer>
 
+
+
     <script src="js/script.js" defer></script>
 </body>
-</html> 
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - Golliath Burgers</title>
+    <link rel="icon" type="image/png" href="../img/logoGB-removebg-preview.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="../img/logoGB-removebg-preview.png" alt="Golliath Burgers Logo" class="login-logo">
+                <h1>Administração</h1>
+                <p>Faça login para acessar o painel de controle</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+            </form>
+            
+            <div id="loginMessage" class="message"></div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <header class="admin-header">
+            <div class="admin-header-content">
+                <div class="admin-logo">
+                    <img src="../img/logoGB-removebg-preview.png" alt="Golliath Burgers Logo">
+
+                    <h2>Painel Administrativo</h2>
+                </div>
+                <div class="admin-user">
+                    <span id="adminName">Administrador</span>
+                    <button id="logoutBtn" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="admin-nav">
+                            <button class="nav-btn active" data-tab="cardapio">
+                    <i class="fas fa-utensils"></i> Cardápio
+                </button>
+                <button class="nav-btn" data-tab="pedidos">
+                    <i class="fas fa-shopping-cart"></i> Pedidos
+                </button>
+                <button class="nav-btn" data-tab="clientes">
+                    <i class="fas fa-users"></i> Clientes
+                </button>
+                <button class="nav-btn" data-tab="siteinfo">
+                    <i class="fas fa-cog"></i> Configurações
+                </button>
+        </nav>
+
+        <main class="admin-content">
+            <!-- Cardápio Tab -->
+            <div id="cardapioTab" class="tab-content active">
+                <div class="tab-header">
+                    <h3>Gerenciar Cardápio</h3>
+                    <button id="addItemBtn" class="add-btn">
+                        <i class="fas fa-plus"></i> Adicionar Item
+                    </button>
+                </div>
+                
+                <div id="cardapioList" class="cardapio-list">
+                    <!-- Items serão carregados aqui -->
+                </div>
+            </div>
+
+            <!-- Pedidos Tab -->
+            <div id="pedidosTab" class="tab-content">
+                <div class="tab-header">
+                    <h3>Gerenciar Pedidos</h3>
+                    <div class="pedidos-filters">
+                        <select id="statusFilter">
+                            <option value="">Todos os Status</option>
+                            <option value="pendente">Pendente</option>
+                            <option value="confirmado">Confirmado</option>
+                            <option value="em_preparo">Em Preparo</option>
+                            <option value="pronto">Pronto</option>
+                            <option value="entregue">Entregue</option>
+                            <option value="cancelado">Cancelado</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="pedidosList" class="pedidos-list">
+                    <!-- Pedidos serão carregados aqui -->
+                </div>
+            </div>
+
+            <!-- Clientes Tab -->
+            <div id="clientesTab" class="tab-content">
+                <div class="tab-header">
+                    <h3>Gerenciar Clientes</h3>
+                </div>
+                
+                <div id="clientesList" class="clientes-list">
+                    <!-- Clientes serão carregados aqui -->
+                </div>
+            </div>
+
+            <!-- Site Info Tab -->
+            <div id="siteinfoTab" class="tab-content">
+                <div class="tab-header">
+                    <h3>Configurações do Site</h3>
+                </div>
+                
+                <div id="siteinfoForm" class="siteinfo-form">
+                    <!-- Formulário será carregado aqui -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para adicionar/editar item do cardápio -->
+    <div id="itemModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Adicionar Item</h3>
+                <button class="close-btn" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="itemForm" class="modal-form">
+                <div class="form-group">
+                    <label for="itemNome">Nome do Item</label>
+                    <input type="text" id="itemNome" name="nome" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="itemDescricao">Descrição</label>
+                    <textarea id="itemDescricao" name="descricao" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="itemPreco">Preço (R$)</label>
+                    <input type="number" id="itemPreco" name="preco" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="itemImagem">Imagem</label>
+                    <div class="image-upload-container">
+                        <input type="file" id="itemImagemFile" accept="image/*" class="image-file-input">
+                        <div class="image-preview-container">
+                            <img id="imagePreview" src="../img/logoGB.PNG" alt="Preview da imagem" class="image-preview">
+                        </div>
+                        <div class="image-upload-buttons">
+                            <button type="button" id="selectImageBtn" class="select-image-btn">Selecionar Imagem</button>
+                        </div>
+                        <input type="hidden" id="itemImagem" name="imagem" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="itemOrdem">Ordem</label>
+                    <input type="number" id="itemOrdem" name="ordem" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="itemDestaque" name="destaque">
+                        Item em destaque
+                    </label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" onclick="closeModal()" class="cancel-btn">Cancelar</button>
+                    <button type="submit" class="save-btn">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
