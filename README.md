@@ -71,14 +71,14 @@ Sistema completo de e-commerce para hamburgueria com site público, carrinho de 
 ## 📋 Pré-requisitos
 
 - Node.js (versão 14 ou superior)
-- MySQL (versão 5.7 ou superior)
 - Navegador web moderno
+- **Banco de dados:** SQLite (incluído, não requer instalação)
 
 ## 🛠️ Instalação
 
 ### 1. Clone o repositório
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/loadlms/Golliath-Burgers
 cd golliath-burgers
 ```
 
@@ -88,20 +88,19 @@ cd backend
 npm install
 ```
 
-### 3. Configure o banco de dados
-1. Crie um banco de dados MySQL chamado `golliath_burgers`
-2. Edite o arquivo `backend/config.env` com suas configurações:
+### 3. Configure o ambiente (opcional)
+O sistema usa **SQLite** que é criado automaticamente. Se necessário, edite o arquivo `backend/config.env`:
 ```env
-DB_HOST=localhost
-DB_USER=seu_usuario
-DB_PASSWORD=sua_senha
-DB_NAME=golliath_burgers
+JWT_SECRET=sua_chave_secreta_aqui
+ADMIN_EMAIL=admin@golliath.com
+ADMIN_PASSWORD=
+PORT=3000
 ```
 
 ### 4. Inicie o servidor
 ```bash
 cd backend
-npm start
+node server.js
 ```
 
 O servidor estará rodando em `http://localhost:3000`
@@ -111,7 +110,8 @@ O servidor estará rodando em `http://localhost:3000`
 ### Credenciais padrão:
 - **URL:** `http://localhost:3000/admin`
 - **E-mail:** `admin@golliath.com`
-- **Senha:** `admin123`
+- **Senha:** Compartilhada apenas com o admin!
+
 
 ⚠️ **Importante:** Altere essas credenciais após o primeiro login!
 
