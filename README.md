@@ -54,19 +54,6 @@ Sistema completo de e-commerce para hamburgueria com site público, carrinho de 
   - Upload de imagens dos produtos
   - Controle de ordem e destaque
   - Ativação/desativação de itens
-- ✅ **Sistema de pedidos:**
-  - Visualização de todos os pedidos
-  - Atualização de status em tempo real
-  - Detalhes completos dos pedidos
-  - Filtros por status
-- ✅ **Gerenciamento de clientes** (estrutura preparada)
-- ✅ **Configurações do site:**
-  - Horário de funcionamento
-  - Endereço e telefone
-  - Texto "Sobre Nós"
-  - Links de redes sociais
-- ✅ **Interface responsiva** e moderna
-- ✅ **Logout seguro** com limpeza de tokens
 
 ## 📋 Pré-requisitos
 
@@ -111,9 +98,6 @@ O servidor estará rodando em `http://localhost:3000`
 - **URL:** `http://localhost:3000/admin`
 - **E-mail:** `admin@golliath.com`
 - **Senha:** Compartilhada apenas com o admin!
-
-
-⚠️ **Importante:** Altere essas credenciais após o primeiro login!
 
 ## 📁 Estrutura do Projeto
 
