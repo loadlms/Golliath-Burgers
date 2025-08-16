@@ -181,16 +181,6 @@ O sistema criará automaticamente as seguintes tabelas:
    - Edite preços, descrições e categorias
    - Controle ordem de exibição e itens em destaque
    - Ative/desative itens conforme disponibilidade
-4. **Acompanhe pedidos:**
-   - Visualize todos os pedidos em tempo real
-   - Atualize status (pendente → confirmado → em preparo → pronto → entregue)
-   - Veja detalhes completos de cada pedido
-   - Filtre pedidos por status
-5. **Configure o site:**
-   - Edite horários de funcionamento
-   - Atualize endereço, telefone e redes sociais
-   - Modifique texto "Sobre Nós"
-   - Gerencie informações de contato
 
 ### 🍔 Para Clientes:
 
