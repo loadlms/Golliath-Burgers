@@ -224,12 +224,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateCartDisplay() {
         const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
         const cartIcon = document.getElementById('cart-icon');
+        const cartCountMobile = document.querySelector('.cart-count-mobile');
         
         if (cartIcon) {
             cartIcon.innerHTML = `
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-count">${cartCount}</span>
             `;
+        }
+        
+        if (cartCountMobile) {
+            cartCountMobile.textContent = cartCount;
         }
     }
 
@@ -399,7 +404,43 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'carrinho.html';
     };
 
+    // Funções do menu mobile
+    window.toggleMobileMenu = function() {
+        const nav = document.getElementById('mobile-nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        
+        nav.classList.toggle('active');
+        toggle.classList.toggle('active');
+    };
 
+    window.closeMobileMenu = function() {
+        const nav = document.getElementById('mobile-nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+    };
 
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', function(e) {
+        const nav = document.getElementById('mobile-nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        
+        if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+            nav.classList.remove('active');
+            toggle.classList.remove('active');
+        }
+    });
+
+    // Fechar menu ao redimensionar janela
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            const nav = document.getElementById('mobile-nav');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            nav.classList.remove('active');
+            toggle.classList.remove('active');
+        }
+    });
 
 });

@@ -46,10 +46,18 @@
             <div class="admin-header-content">
                 <div class="admin-logo">
                     <img src="../img/logoGB-removebg-preview.png" alt="Golliath Burgers Logo">
-
                     <h2>Painel Administrativo</h2>
                 </div>
-                <div class="admin-user">
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle admin-mobile-toggle" onclick="toggleAdminMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <!-- Desktop User Actions -->
+                <div class="admin-user desktop-admin-user">
                     <span id="adminName">Administrador</span>
                     <button id="logoutBtn" class="logout-btn">
                         <i class="fas fa-sign-out-alt"></i> Sair
@@ -58,19 +66,44 @@
             </div>
         </header>
 
-        <nav class="admin-nav">
-                            <button class="nav-btn active" data-tab="cardapio">
+        <!-- Desktop Navigation -->
+        <nav class="admin-nav desktop-admin-nav">
+            <button class="nav-btn active" data-tab="cardapio">
+                <i class="fas fa-utensils"></i> Cardápio
+            </button>
+            <button class="nav-btn" data-tab="pedidos">
+                <i class="fas fa-shopping-cart"></i> Pedidos
+            </button>
+            <button class="nav-btn" data-tab="clientes">
+                <i class="fas fa-users"></i> Clientes
+            </button>
+            <button class="nav-btn" data-tab="siteinfo">
+                <i class="fas fa-cog"></i> Configurações
+            </button>
+        </nav>
+        
+        <!-- Mobile Navigation -->
+        <nav id="admin-mobile-nav" class="admin-mobile-nav">
+            <div class="mobile-admin-user">
+                <span id="adminNameMobile">Administrador</span>
+                <button id="logoutBtnMobile" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+            <div class="mobile-nav-buttons">
+                <button class="nav-btn active" data-tab="cardapio" onclick="closeAdminMobileMenu()">
                     <i class="fas fa-utensils"></i> Cardápio
                 </button>
-                <button class="nav-btn" data-tab="pedidos">
+                <button class="nav-btn" data-tab="pedidos" onclick="closeAdminMobileMenu()">
                     <i class="fas fa-shopping-cart"></i> Pedidos
                 </button>
-                <button class="nav-btn" data-tab="clientes">
+                <button class="nav-btn" data-tab="clientes" onclick="closeAdminMobileMenu()">
                     <i class="fas fa-users"></i> Clientes
                 </button>
-                <button class="nav-btn" data-tab="siteinfo">
+                <button class="nav-btn" data-tab="siteinfo" onclick="closeAdminMobileMenu()">
                     <i class="fas fa-cog"></i> Configurações
                 </button>
+            </div>
         </nav>
 
         <main class="admin-content">

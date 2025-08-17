@@ -85,6 +85,12 @@ header {
     padding: 15px 5%;
 }
 
+.header-with-bg {
+    background-image: url('../img/cabeçalho.png');
+    background-size: cover;
+    background-position: center;
+}
+
 .logo img {
     height: 60px;
     border-radius: 50%;
@@ -284,6 +290,35 @@ nav ul li a:hover {
 .menu-section {
     background-color: var(--light);
     position: relative;
+}
+
+/* Menu Actions */
+.menu-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.add-to-cart-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #d0242f;
+    transform: translateY(-2px);
 }
 
 .menu-section::before {
@@ -726,6 +761,7 @@ footer {
 
 
 /* Menu Mobile */
+/* Menu Mobile Toggle */
 .mobile-menu-toggle {
     display: none;
     background: none;
@@ -734,6 +770,11 @@ footer {
     color: var(--dark);
     cursor: pointer;
     padding: 10px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
 }
 
 .mobile-menu-toggle i {
@@ -744,10 +785,82 @@ footer {
     transform: rotate(90deg);
 }
 
+/* Navegação Mobile */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: var(--white);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding-top: 80px;
+}
+
+.mobile-nav.active {
+    right: 0;
+}
+
+.mobile-nav ul {
+    flex-direction: column;
+    padding: 20px 0;
+    list-style: none;
+}
+
+.mobile-nav ul li {
+    margin: 0;
+    border-bottom: 1px solid var(--light);
+}
+
+.mobile-nav ul li a {
+    color: var(--dark);
+    font-size: 1.1rem;
+    padding: 15px 25px;
+    display: block;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav ul li a:hover {
+    background-color: var(--light);
+    color: var(--primary);
+}
+
+.mobile-nav .mobile-actions {
+    border-bottom: 1px solid var(--light);
+}
+
+.mobile-nav .mobile-cart {
+    color: var(--dark);
+    font-size: 1.1rem;
+    padding: 15px 25px;
+    display: block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav .mobile-cart:hover {
+    background-color: var(--light);
+    color: var(--primary);
+}
+
+.mobile-nav .mobile-actions a {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.cart-count-mobile {
+    color: var(--primary);
+    font-weight: bold;
+}
+
 /* Media Queries para Mobile */
 @media (max-width: 768px) {
     header {
-        flex-wrap: wrap;
+        position: relative;
         padding: 10px 3%;
     }
     
@@ -755,67 +868,33 @@ footer {
         height: 45px;
     }
     
-    nav {
+    /* Esconder navegação desktop */
+    .desktop-nav {
         display: none;
-        width: 100%;
-        order: 3;
-        background-color: var(--white);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        margin-top: 10px;
-        border-radius: 8px;
     }
     
-    nav.active {
-        display: block;
-        animation: slideDown 0.3s ease;
+    /* Esconder ações desktop */
+    .desktop-actions {
+        display: none !important;
     }
     
-    nav ul {
-        flex-direction: column;
-        padding: 15px 0;
+    /* Esconder ações do header no mobile */
+    .header-actions {
+        display: none !important;
     }
     
-    nav ul li {
-        margin: 8px 0;
-        text-align: center;
-    }
-    
-    nav ul li a {
-        color: var(--dark);
-        font-size: 1.1rem;
-        padding: 12px 20px;
-        display: block;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-    }
-    
-    nav ul li a:hover {
-        background-color: var(--light);
-        color: var(--primary);
-    }
-    
+    /* Mostrar botão do menu mobile */
     .mobile-menu-toggle {
         display: block;
     }
     
-    .header-actions {
-        flex-direction: row;
-        gap: 10px;
-        align-items: center;
+    /* Mostrar navegação mobile */
+    .mobile-nav {
+        display: block;
     }
     
-    .cart-link {
-        padding: 8px 12px;
-        font-size: 0.9rem;
-    }
-    
-    .whatsapp-link a {
-        padding: 8px 12px;
-        font-size: 0.8rem;
-    }
-    
-    .whatsapp-link a span {
-        display: none;
+    .hero {
+        margin-top: 60px;
     }
     
     .hero-content h1 {
@@ -828,6 +907,20 @@ footer {
     
     .section-title {
         font-size: 2rem;
+    }
+    
+    /* Layout da seção Sobre Nós no mobile */
+    .about-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .about-image {
+        order: 1;
+    }
+    
+    .about-text {
+        order: 2;
     }
     
     .info-content {
@@ -1323,10 +1416,5 @@ footer {
     .user-area {
         flex-direction: column;
         gap: 5px;
-    }
-    
-    .header-actions {
-        flex-direction: column;
-        gap: 10px;
     }
 }

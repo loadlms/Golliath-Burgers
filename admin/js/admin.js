@@ -849,7 +849,63 @@ function notifyFrontendUpdate() {
     localStorage.setItem('lastUpdate', Date.now());
 }
 
-// CSS para animação da mensagem
+// Funções do menu mobile do admin
+function toggleAdminMobileMenu() {
+    const mobileNav = document.getElementById('admin-mobile-nav');
+    const toggleBtn = document.querySelector('.admin-mobile-toggle');
+    
+    if (mobileNav && toggleBtn) {
+        mobileNav.classList.toggle('active');
+        toggleBtn.classList.toggle('active');
+    }
+}
+
+function closeAdminMobileMenu() {
+    const mobileNav = document.getElementById('admin-mobile-nav');
+    const toggleBtn = document.querySelector('.admin-mobile-toggle');
+    
+    if (mobileNav && toggleBtn) {
+        mobileNav.classList.remove('active');
+        toggleBtn.classList.remove('active');
+    }
+}
+
+// Event listeners para o menu mobile do admin
+document.addEventListener('DOMContentLoaded', function() {
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', function(e) {
+        const mobileNav = document.getElementById('admin-mobile-nav');
+        const toggleBtn = document.querySelector('.admin-mobile-toggle');
+        
+        if (mobileNav && toggleBtn && 
+            !mobileNav.contains(e.target) && 
+            !toggleBtn.contains(e.target) && 
+            mobileNav.classList.contains('active')) {
+            closeAdminMobileMenu();
+        }
+    });
+    
+    // Fechar menu ao redimensionar janela
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            closeAdminMobileMenu();
+        }
+    });
+    
+    // Sincronizar botões de logout
+    const logoutBtnMobile = document.getElementById('logoutBtnMobile');
+    if (logoutBtnMobile) {
+        logoutBtnMobile.addEventListener('click', handleLogout);
+    }
+    
+    // Sincronizar nome do admin no mobile
+    const adminNameMobile = document.getElementById('adminNameMobile');
+    if (adminNameMobile && currentUser) {
+        adminNameMobile.textContent = currentUser.nome || 'Administrador';
+    }
+});
+
+// Adicionar estilos de animação
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {

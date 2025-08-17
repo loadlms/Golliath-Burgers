@@ -12,30 +12,26 @@
 </head>
 <body>
     <!-- Header com navegação -->
-    <!-- Substituir o cabeçalho atual (linhas 15-40) por: -->
-    <header style="background-image: url('img/cabeçalho.png'); background-size: cover;">
+    <header class="header-with-bg">
         <div class="logo">
             <a href="#home">
                 <img src="img/logoGB.PNG" alt="Golliath Burgers Logo">
             </a>
         </div>
         
-        <!-- Botão do menu mobile -->
-        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-            <i class="fas fa-bars"></i>
-        </button>
-        
-        <nav id="mobile-nav">
+        <!-- Navegação desktop -->
+        <nav class="desktop-nav">
             <ul>
-                <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
-                <li><a href="#menu" onclick="closeMobileMenu()">Cardápio</a></li>
-                <li><a href="#about" onclick="closeMobileMenu()">Sobre Nós</a></li>
-                <li><a href="#cadastro" onclick="closeMobileMenu()">Cadastro</a></li>
-                <li><a href="#location" onclick="closeMobileMenu()">Localização</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Cardápio</a></li>
+                <li><a href="#about">Sobre Nós</a></li>
+                <li><a href="#cadastro">Cadastro</a></li>
+                <li><a href="#location">Localização</a></li>
             </ul>
         </nav>
         
-        <div class="header-actions">
+        <!-- Ações do cabeçalho desktop -->
+        <div class="header-actions desktop-actions">
             <div class="cart-link" id="cart-icon" onclick="openCart()">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-count">0</span>
@@ -47,6 +43,34 @@
                 </a>
             </div>
         </div>
+        
+        <!-- Botão do menu mobile -->
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Menu mobile -->
+        <nav id="mobile-nav" class="mobile-nav">
+            <ul>
+                <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#menu" onclick="closeMobileMenu()">Cardápio</a></li>
+                <li><a href="#about" onclick="closeMobileMenu()">Sobre Nós</a></li>
+                <li><a href="#cadastro" onclick="closeMobileMenu()">Cadastro</a></li>
+                <li><a href="#location" onclick="closeMobileMenu()">Localização</a></li>
+                <li class="mobile-actions">
+                    <div class="mobile-cart" onclick="openCart(); closeMobileMenu();">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Carrinho (<span class="cart-count-mobile">0</span>)</span>
+                    </div>
+                </li>
+                <li class="mobile-actions">
+                    <a href="https://wa.me/5511957548091" target="_blank" onclick="closeMobileMenu()">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Peça pelo WhatsApp</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </header>
 
     <!-- Hero section com foto de fundo e queijo derretendo -->
@@ -255,7 +279,9 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="img/logoGB.PNG" alt="Golliath Burgers Logo" style="border-radius: 50%;">
+                    <a href="#home">
+                        <img src="img/logoGB-removebg-preview.png" alt="Golliath Burgers Logo">
+                    </a>
                     <p>O lar dos mais saborosos hambúrgueres da cidade!</p>
                 </div>
                 <div class="footer-links">
