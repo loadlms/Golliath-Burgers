@@ -1,43 +1,9 @@
 {
   "version": 2,
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "backend/server.js"
-    },
-    {
-      "src": "/css/(.*)",
-      "dest": "/css/$1",
-      "headers": {
-        "Content-Type": "text/css"
-      }
-    },
-    {
-      "src": "/js/(.*)",
-      "dest": "/js/$1",
-      "headers": {
-        "Content-Type": "application/javascript"
-      }
-    },
-    {
-      "src": "/img/(.*)",
-      "dest": "/img/$1"
-    },
-    {
-      "src": "/admin/(.*)",
-      "dest": "/admin/$1"
-    },
-    {
-      "src": "/(.*\\.(css|js|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot|html))",
-      "dest": "/$1"
-    },
-    {
-      "src": "/carrinho.html",
-      "dest": "/carrinho.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     }
   ],
   "functions": {
