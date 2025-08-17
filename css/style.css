@@ -16,11 +16,19 @@
     --black: #000000;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     color: var(--dark);
     background-color: var(--light);
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 /* Estilos gerais */
@@ -185,7 +193,8 @@ nav ul li a:hover {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: 90px;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .hero-overlay {
@@ -301,9 +310,9 @@ nav ul li a:hover {
 }
 
 .add-to-cart-btn {
-    background-color: var(--primary);
-    color: var(--white);
-    border: none;
+    background-color: #e63946 !important;
+    color: #ffffff !important;
+    border: none !important;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -311,13 +320,15 @@ nav ul li a:hover {
     font-size: 1.2rem;
     font-weight: 500;
     transition: all 0.3s ease;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .add-to-cart-btn:hover {
-    background-color: #d0242f;
+    background-color: #d0242f !important;
     transform: translateY(-2px);
 }
 
@@ -894,7 +905,7 @@ footer {
     }
     
     .hero {
-        margin-top: 60px;
+        margin-top: 0;
     }
     
     .hero-content h1 {
