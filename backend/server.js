@@ -52,15 +52,21 @@ app.get('/admin', (req, res) => {
 async function initializeDefaultData() {
   try {
     // Criar admin padrão se não existir
-    const adminExists = await Admin.findOne({ where: { email: process.env.ADMIN_EMAIL || 'admin@golliath.com' } });
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@golliath.com';
+    const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+    
+    const adminExists = await Admin.findOne({ where: { email: adminEmail } });
     
     if (!adminExists) {
-      await Admin.create({
-        email: process.env.ADMIN_EMAIL || 'admin@golliath.com',
-        password: process.env.ADMIN_PASSWORD || 'admin123',
+      const newAdmin = await Admin.create({
+        email: adminEmail,
+        password: adminPassword,
         name: 'Administrador Golliath'
       });
-      console.log('✅ Admin padrão criado');
+      console.log('✅ Admin padrão criado:', adminEmail);
+      console.log('✅ Senha do admin:', adminPassword);
+    } else {
+      console.log('✅ Admin já existe:', adminEmail);
     }
 
     // Criar informações padrão do site
@@ -143,9 +149,13 @@ async function startServer() {
     // Configurar relacionamentos
     setupAssociations();
     
-    // Sincronizar modelos com o banco
-    await sequelize.sync({ force: false });
+    // Sincronizar modelos com o banco (força criação em produção)
+    const isProduction = process.env.NODE_ENV === 'production';
+    await sequelize.sync({ force: isProduction });
     console.log('✅ Banco de dados sincronizado');
+
+    // Aguardar um pouco para garantir que as tabelas foram criadas
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Inicializar dados padrão
     await initializeDefaultData();
@@ -160,8 +170,14 @@ async function startServer() {
 
   } catch (error) {
     console.error('❌ Erro ao iniciar servidor:', error);
-    process.exit(1);
+    // Em produção, tenta novamente após um delay
+    if (process.env.NODE_ENV === 'production') {
+      console.log('🔄 Tentando novamente em 3 segundos...');
+      setTimeout(() => startServer(), 3000);
+    } else {
+      process.exit(1);
+    }
   }
 }
 
-startServer(); 
+startServer();

@@ -1,0 +1,15 @@
+# Arquivos que devem ser ignorados no deploy
+node_modules/
+.env
+.env.local
+.git/
+*.log
+README.md
+INSTRUCOES_RAPIDAS.md
+
+# Manter todos os arquivos CSS, JS e imagens
+!css/
+!js/
+!img/
+!admin/
+!backend/
