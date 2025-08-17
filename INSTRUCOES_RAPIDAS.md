@@ -23,7 +23,7 @@ node server.js
 - **🛒 Carrinho:** http://localhost:3000/carrinho.html
 - **🎛️ Admin:** http://localhost:3000/admin
   - E-mail: `admin@golliath.com`
-  - Senha: Compartilhada apenas com o admin!
+  - Senha: `admin123` (altere após primeiro login!)
 
 ## 🎯 Principais Funcionalidades
 

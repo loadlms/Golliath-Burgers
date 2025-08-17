@@ -725,24 +725,99 @@ footer {
 
 
 
-/* Responsividade */
-@media (max-width: 992px) {
-    .hero-content h1 {
-        font-size: 4rem;
+/* Menu Mobile */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--dark);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.mobile-menu-toggle i {
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu-toggle.active i {
+    transform: rotate(90deg);
+}
+
+/* Media Queries para Mobile */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+        padding: 10px 3%;
     }
     
-    .about-content {
-        flex-direction: column;
+    .logo img {
+        height: 45px;
     }
     
     nav {
-        display: none; /* Simplificando para mobile - normalmente adicionar-se-ia um menu hambúrguer */
+        display: none;
+        width: 100%;
+        order: 3;
+        background-color: var(--white);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin-top: 10px;
+        border-radius: 8px;
     }
     
-
-}
-
-@media (max-width: 768px) {
+    nav.active {
+        display: block;
+        animation: slideDown 0.3s ease;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        padding: 15px 0;
+    }
+    
+    nav ul li {
+        margin: 8px 0;
+        text-align: center;
+    }
+    
+    nav ul li a {
+        color: var(--dark);
+        font-size: 1.1rem;
+        padding: 12px 20px;
+        display: block;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+        background-color: var(--light);
+        color: var(--primary);
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .header-actions {
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .cart-link {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .whatsapp-link a {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .whatsapp-link a span {
+        display: none;
+    }
+    
     .hero-content h1 {
         font-size: 3rem;
     }
@@ -762,11 +837,37 @@ footer {
     .form-row {
         grid-template-columns: 1fr;
     }
-    
-
 }
 
-@media (max-width: 576px) {
+@media (max-width: 480px) {
+    header {
+        padding: 8px 2%;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .header-actions {
+        gap: 8px;
+    }
+    
+    .cart-link {
+        padding: 6px 10px;
+        min-width: 45px;
+        justify-content: center;
+    }
+    
+    .cart-link span {
+        display: none;
+    }
+    
+    .whatsapp-link a {
+        padding: 6px 10px;
+        min-width: 45px;
+        justify-content: center;
+    }
+    
     .hero-content h1 {
         font-size: 2.5rem;
     }
@@ -775,8 +876,65 @@ footer {
         flex-direction: column;
         gap: 30px;
     }
-    
+}
 
+/* Animação para menu mobile */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Melhorar botões de adicionar ao carrinho */
+@media (max-width: 768px) {
+    .add-to-cart-btn {
+        padding: 15px 20px !important;
+        font-size: 1rem !important;
+        min-height: 48px;
+        width: 100%;
+        margin-top: 15px;
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    
+    .menu-item {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .menu-info h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
+    .menu-info p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+    
+    .menu-price {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-to-cart-btn {
+        padding: 18px 25px !important;
+        font-size: 1.1rem !important;
+        min-height: 52px;
+    }
+    
+    .menu-item {
+        padding: 15px;
+    }
 }
 
 

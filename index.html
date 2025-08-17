@@ -12,21 +12,29 @@
 </head>
 <body>
     <!-- Header com navegação -->
+    <!-- Substituir o cabeçalho atual (linhas 15-40) por: -->
     <header style="background-image: url('img/cabeçalho.png'); background-size: cover;">
         <div class="logo">
             <a href="#home">
                 <img src="img/logoGB.PNG" alt="Golliath Burgers Logo">
             </a>
         </div>
-        <nav>
+        
+        <!-- Botão do menu mobile -->
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav id="mobile-nav">
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#menu">Cardápio</a></li>
-                <li><a href="#about">Sobre Nós</a></li>
-                <li><a href="#cadastro">Cadastro</a></li>
-                <li><a href="#location">Localização</a></li>
+                <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#menu" onclick="closeMobileMenu()">Cardápio</a></li>
+                <li><a href="#about" onclick="closeMobileMenu()">Sobre Nós</a></li>
+                <li><a href="#cadastro" onclick="closeMobileMenu()">Cadastro</a></li>
+                <li><a href="#location" onclick="closeMobileMenu()">Localização</a></li>
             </ul>
         </nav>
+        
         <div class="header-actions">
             <div class="cart-link" id="cart-icon" onclick="openCart()">
                 <i class="fas fa-shopping-cart"></i>
@@ -34,7 +42,8 @@
             </div>
             <div class="whatsapp-link">
                 <a href="https://wa.me/5511957548091" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Peça pelo WhatsApp
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Peça pelo WhatsApp</span>
                 </a>
             </div>
         </div>
