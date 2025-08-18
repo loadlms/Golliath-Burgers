@@ -24,9 +24,27 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: true,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Headers para Vercel
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
 
 // Servir arquivos estáticos (frontend)
 app.use(express.static(path.join(__dirname, '../')));
@@ -143,11 +161,20 @@ function setupAssociations() {
   Pedido.belongsTo(Cliente, { foreignKey: 'cliente_id', as: 'cliente' });
 }
 
+// Variável para controlar se o banco já foi inicializado
+let isInitialized = false;
+
 // Inicializar banco de dados
 async function initializeDatabase() {
+  if (isInitialized) return;
+  
   try {
     // Configurar relacionamentos
     setupAssociations();
+    
+    // Testar conexão primeiro
+    await sequelize.authenticate();
+    console.log('✅ Conexão com banco estabelecida');
     
     // Sincronizar modelos com o banco
     await sequelize.sync({ alter: true });
@@ -156,14 +183,28 @@ async function initializeDatabase() {
     // Inicializar dados padrão
     await initializeDefaultData();
     console.log('✅ Dados padrão inicializados');
+    
+    isInitialized = true;
 
   } catch (error) {
     console.error('❌ Erro ao inicializar banco:', error);
+    // Em caso de erro, permitir nova tentativa
+    isInitialized = false;
   }
 }
 
-// Inicializar banco quando o módulo for carregado
-initializeDatabase();
+// Middleware para garantir que o banco esteja inicializado
+app.use(async (req, res, next) => {
+  if (!isInitialized) {
+    await initializeDatabase();
+  }
+  next();
+});
+
+// Inicializar banco quando o módulo for carregado (para desenvolvimento)
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  initializeDatabase();
+}
 
 // Exportar o app para Vercel
 module.exports = app;
