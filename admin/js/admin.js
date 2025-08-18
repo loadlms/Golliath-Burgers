@@ -1,28 +1,38 @@
 // Configurações da API
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = '/api';
 
 // Estado global
 let currentUser = null;
 let authToken = localStorage.getItem('authToken');
 
 // Elementos DOM
-const loginScreen = document.getElementById('loginScreen');
-const adminDashboard = document.getElementById('adminDashboard');
-const loginForm = document.getElementById('loginForm');
-const loginMessage = document.getElementById('loginMessage');
-const logoutBtn = document.getElementById('logoutBtn');
-const adminName = document.getElementById('adminName');
+let loginScreen, adminDashboard, loginForm, loginMessage, logoutBtn, adminName;
 
-// Verificar se já está logado
-if (authToken) {
-    verifyToken();
-} else {
-    showLoginScreen();
-}
-
-// Event Listeners
-loginForm.addEventListener('submit', handleLogin);
-logoutBtn.addEventListener('click', handleLogout);
+// Inicializar quando DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    // Obter elementos DOM
+    loginScreen = document.getElementById('loginScreen');
+    adminDashboard = document.getElementById('adminDashboard');
+    loginForm = document.getElementById('loginForm');
+    loginMessage = document.getElementById('loginMessage');
+    logoutBtn = document.getElementById('logoutBtn');
+    adminName = document.getElementById('adminName');
+    
+    // Event Listeners
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', handleLogout);
+    }
+    
+    // Verificar se já está logado
+    if (authToken) {
+        verifyToken();
+    } else {
+        showLoginScreen();
+    }
+});
 
 // Funções de autenticação
 async function handleLogin(e) {

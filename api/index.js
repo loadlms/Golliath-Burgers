@@ -143,41 +143,27 @@ function setupAssociations() {
   Pedido.belongsTo(Cliente, { foreignKey: 'cliente_id', as: 'cliente' });
 }
 
-// Inicializar banco de dados e servidor
-async function startServer() {
+// Inicializar banco de dados
+async function initializeDatabase() {
   try {
     // Configurar relacionamentos
     setupAssociations();
     
-    // Sincronizar modelos com o banco (força criação em produção)
-    const isProduction = process.env.NODE_ENV === 'production';
-    await sequelize.sync({ force: isProduction });
+    // Sincronizar modelos com o banco
+    await sequelize.sync({ alter: true });
     console.log('✅ Banco de dados sincronizado');
-
-    // Aguardar um pouco para garantir que as tabelas foram criadas
-    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Inicializar dados padrão
     await initializeDefaultData();
-
-    // Iniciar servidor
-    app.listen(PORT, () => {
-      console.log(`🚀 Servidor rodando na porta ${PORT}`);
-      console.log(`📱 Frontend: http://localhost:${PORT}`);
-      console.log(`🔧 Admin: http://localhost:${PORT}/admin`);
-      console.log(`📊 API: http://localhost:${PORT}/api`);
-    });
+    console.log('✅ Dados padrão inicializados');
 
   } catch (error) {
-    console.error('❌ Erro ao iniciar servidor:', error);
-    // Em produção, tenta novamente após um delay
-    if (process.env.NODE_ENV === 'production') {
-      console.log('🔄 Tentando novamente em 3 segundos...');
-      setTimeout(() => startServer(), 3000);
-    } else {
-      process.exit(1);
-    }
+    console.error('❌ Erro ao inicializar banco:', error);
   }
 }
 
-startServer();
+// Inicializar banco quando o módulo for carregado
+initializeDatabase();
+
+// Exportar o app para Vercel
+module.exports = app;

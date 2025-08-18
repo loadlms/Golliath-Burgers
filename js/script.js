@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Carregar cardápio dinamicamente da API
     async function loadCardapioFromAPI() {
         try {
-            const response = await fetch('http://localhost:3000/api/cardapio');
+            const response = await fetch('/api/cardapio');
             const data = await response.json();
             
             if (data.success) {
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Função para carregar informações do site da API
     async function loadSiteInfoFromAPI() {
         try {
-            const response = await fetch('http://localhost:3000/api/siteinfo');
+            const response = await fetch('/api/siteinfo');
             const data = await response.json();
             
             if (data.success) {

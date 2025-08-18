@@ -3,7 +3,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentPedido = null;
 
 // Constantes
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = '/api';
 
 // Inicializar página
 document.addEventListener('DOMContentLoaded', function() {
