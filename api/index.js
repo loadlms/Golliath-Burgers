@@ -47,7 +47,31 @@ app.use((req, res, next) => {
 });
 
 // Servir arquivos estáticos (frontend)
-app.use(express.static(path.join(__dirname, '../')));
+app.use(express.static(path.join(__dirname, '../'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    }
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+    if (path.endsWith('.png') || path.endsWith('.jpg') || path.endsWith('.jpeg')) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000');
+    }
+  }
+}));
+
+// Servir arquivos específicos da área admin
+app.use('/admin', express.static(path.join(__dirname, '../admin'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    }
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
 
 // Rotas da API
 app.use('/api/auth', authRoutes);
@@ -64,6 +88,12 @@ app.get('/', (req, res) => {
 // Rota para página de admin
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, '../admin/index.html'));
+});
+
+// Rota específica para recursos admin
+app.get('/admin/*', (req, res) => {
+  const filePath = req.path.replace('/admin', '');
+  res.sendFile(path.join(__dirname, '../admin', filePath));
 });
 
 // Função para inicializar dados padrão
