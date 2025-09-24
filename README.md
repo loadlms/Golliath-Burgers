@@ -183,11 +183,11 @@ vercel
 ## 🔐 Acesso ao Sistema
 
 ### Site Público
-- **URL:** [https://golliath-burgers.vercel.app](https://golliath-burgers.vercel.app)
+- **URL:** [https://golliathburgers.vercel.app](https://golliathburgers.vercel.app)
 - Navegue pelo cardápio, adicione itens ao carrinho e finalize via WhatsApp
 
 ### Painel Administrativo
-- **URL:** [https://golliath-burgers.vercel.app/admin](https://golliath-burgers.vercel.app/admin)
+- **URL:** [https://golliathburgers.vercel.app/admin](https://golliathburgers.vercel.app/admin)
 - **E-mail:** `admin@golliath.com`
 - **Senha:** Configurada no sistema
 
