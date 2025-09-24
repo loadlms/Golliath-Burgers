@@ -187,7 +187,7 @@ vercel
 - Navegue pelo cardápio, adicione itens ao carrinho e finalize via WhatsApp
 
 ### Painel Administrativo
-- **URL:** [https://golliathburgers.vercel.app/admin](https://golliathburgers.vercel.app/admin)
+- **URL:** [https://golliathburgers.vercel.app/admin](https://golliathburgers.vercel.app/admin/)
 - **E-mail:** `admin@golliath.com`
 - **Senha:** Configurada no sistema
 
