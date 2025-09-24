@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="cache-version" content="v20250120-002">
     <title>Golliath Burgers</title>
     <link rel="icon" type="image/png" href="img/logoGB-removebg-preview.png">
     <!-- CSS Crítico Inline para Vercel -->
@@ -41,7 +45,7 @@
             padding: 15px 5% !important;
         }
         .header-with-bg {
-            background-image: url('img/cabeçalho.png');
+            background-image: url('img/cabecalho.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -126,10 +130,162 @@
              }
         }
     </style>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/carrinho.css">
+    <link rel="stylesheet" href="css/style.css?v=20250120-002">
+    <link rel="stylesheet" href="css/carrinho.css?v=20250120-002">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Polyfills para compatibilidade com dispositivos mais antigos -->
+    <script>
+        // Polyfill para fetch
+        if (!window.fetch) {
+            window.fetch = function(url, options) {
+                return new Promise(function(resolve, reject) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open(options && options.method || 'GET', url);
+                    
+                    if (options && options.headers) {
+                        for (var key in options.headers) {
+                            xhr.setRequestHeader(key, options.headers[key]);
+                        }
+                    }
+                    
+                    xhr.onload = function() {
+                        resolve({
+                            ok: xhr.status >= 200 && xhr.status < 300,
+                            status: xhr.status,
+                            statusText: xhr.statusText,
+                            json: function() { return Promise.resolve(JSON.parse(xhr.responseText)); },
+                            text: function() { return Promise.resolve(xhr.responseText); }
+                        });
+                    };
+                    
+                    xhr.onerror = function() { reject(new Error('Network error')); };
+                    xhr.send(options && options.body || null);
+                });
+            };
+        }
+        
+        // Polyfill para Promise
+        if (!window.Promise) {
+            window.Promise = function(executor) {
+                var self = this;
+                self.state = 'pending';
+                self.value = undefined;
+                self.handlers = [];
+                
+                function resolve(result) {
+                    if (self.state === 'pending') {
+                        self.state = 'fulfilled';
+                        self.value = result;
+                        self.handlers.forEach(handle);
+                        self.handlers = null;
+                    }
+                }
+                
+                function reject(error) {
+                    if (self.state === 'pending') {
+                        self.state = 'rejected';
+                        self.value = error;
+                        self.handlers.forEach(handle);
+                        self.handlers = null;
+                    }
+                }
+                
+                function handle(handler) {
+                    if (self.state === 'pending') {
+                        self.handlers.push(handler);
+                    } else {
+                        if (self.state === 'fulfilled' && typeof handler.onFulfilled === 'function') {
+                            handler.onFulfilled(self.value);
+                        }
+                        if (self.state === 'rejected' && typeof handler.onRejected === 'function') {
+                            handler.onRejected(self.value);
+                        }
+                    }
+                }
+                
+                this.then = function(onFulfilled, onRejected) {
+                    return new Promise(function(resolve, reject) {
+                        handle({
+                            onFulfilled: function(result) {
+                                try {
+                                    resolve(onFulfilled ? onFulfilled(result) : result);
+                                } catch (ex) {
+                                    reject(ex);
+                                }
+                            },
+                            onRejected: function(error) {
+                                try {
+                                    resolve(onRejected ? onRejected(error) : Promise.reject(error));
+                                } catch (ex) {
+                                    reject(ex);
+                                }
+                            }
+                        });
+                    });
+                };
+                
+                executor(resolve, reject);
+            };
+            
+            Promise.resolve = function(value) {
+                return new Promise(function(resolve) { resolve(value); });
+            };
+            
+            Promise.reject = function(reason) {
+                return new Promise(function(resolve, reject) { reject(reason); });
+            };
+        }
+        
+        // Polyfill para Array.prototype.find
+        if (!Array.prototype.find) {
+            Array.prototype.find = function(predicate) {
+                for (var i = 0; i < this.length; i++) {
+                    if (predicate(this[i], i, this)) {
+                        return this[i];
+                    }
+                }
+                return undefined;
+            };
+        }
+        
+        // Polyfill para Array.prototype.includes
+        if (!Array.prototype.includes) {
+            Array.prototype.includes = function(searchElement) {
+                return this.indexOf(searchElement) !== -1;
+            };
+        }
+        
+        // Polyfill para Element.prototype.closest
+        if (!Element.prototype.closest) {
+            Element.prototype.closest = function(selector) {
+                var element = this;
+                while (element && element.nodeType === 1) {
+                    if (element.matches && element.matches(selector)) {
+                        return element;
+                    }
+                    element = element.parentElement;
+                }
+                return null;
+            };
+        }
+        
+        // Polyfill para Element.prototype.matches
+        if (!Element.prototype.matches) {
+            Element.prototype.matches = Element.prototype.matchesSelector ||
+                Element.prototype.mozMatchesSelector ||
+                Element.prototype.msMatchesSelector ||
+                Element.prototype.oMatchesSelector ||
+                Element.prototype.webkitMatchesSelector ||
+                function(s) {
+                    var matches = (this.document || this.ownerDocument).querySelectorAll(s);
+                    var i = matches.length;
+                    while (--i >= 0 && matches.item(i) !== this) {}
+                    return i > -1;
+                };
+        }
+    </script>
 </head>
 <body>
     <!-- Header com navegação -->
@@ -146,7 +302,6 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#menu">Cardápio</a></li>
                 <li><a href="#about">Sobre Nós</a></li>
-                <li><a href="#cadastro">Cadastro</a></li>
                 <li><a href="#location">Localização</a></li>
             </ul>
         </nav>
@@ -176,7 +331,6 @@
                 <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
                 <li><a href="#menu" onclick="closeMobileMenu()">Cardápio</a></li>
                 <li><a href="#about" onclick="closeMobileMenu()">Sobre Nós</a></li>
-                <li><a href="#cadastro" onclick="closeMobileMenu()">Cadastro</a></li>
                 <li><a href="#location" onclick="closeMobileMenu()">Localização</a></li>
                 <li class="mobile-actions">
                     <div class="mobile-cart" onclick="openCart(); closeMobileMenu();">
@@ -227,82 +381,9 @@
         <div class="container">
             <h2 class="section-title">NOSSOS BURGERS</h2>
             <div class="menu-grid">
-                <div class="menu-item">
-                    <div class="menu-img">
-                        <img src="img/_MG_0316.jpg" alt="X BACON DE GOLIATH">
-                    </div>
-                    <div class="menu-info">
-                        <h3>X BACON DE GOLIATH</h3>
-                        <p>Burger de 90g, com American Cheese, 2 fatias de bacon, molho especial de Golliath no pão brioche tostado na manteiga.</p>
-                        <span class="price">R$ 25,90</span>
-                    </div>
-                </div>
-
-                <div class="menu-item">
-                    <div class="menu-img">
-                        <img src="img/_MG_0191.jpg" alt="GOLLIATH TRIPLO P.C.Q">
-                    </div>
-                    <div class="menu-info">
-                        <h3>GOLLIATH TRIPLO P.C.Q</h3>
-                        <p>3x mais carne, 3x mais queijo. Com 3 Burguers de 90g totalizando 270g de carne, e com fatias de American Cheese, no pão brioche tostado na manteiga.</p>
-                        <span class="price">R$ 32,90</span>
-                    </div>
-                </div>
-                
-                <div class="menu-item">
-                    <div class="menu-img">
-                        <img src="img/_MG_0309.jpg" alt="GOLLIATH TRIPLO BACON">
-                    </div>
-                    <div class="menu-info">
-                        <h3>GOLLIATH TRIPLO BACON</h3>
-                        <p>3x mais carne, 3x mais queijo e 3x mais bacon. Com 3 Burguers de 90g totalizando 270g de carne, com fatias de American Cheese, 2 fatias de bacon por andar, e molho especial de Golliath no pão brioche tostado na manteiga.</p>
-                        <span class="price">R$ 39,90</span>
-                    </div>
-                </div>
-                
-                <div class="menu-item">
-                    <div class="menu-img">
-                        <img src="img/_MG_6201.jpg" alt="GOLLIATH OKLAHOMA">
-                    </div>
-                    <div class="menu-info">
-                        <h3>GOLLIATH OKLAHOMA</h3>
-                        <p>4 burguers de 90g ao estilo Oklahoma, totalizando 360g de blend, com 4 fatias de queijo cheddar, no pão brioche selado na manteiga.</p>
-                        <span class="price">R$ 49,90</span>
-                    </div>
-                </div>
-
-                <!-- Additional menu items (hidden by default) -->
-                <div class="menu-item additional-menu" style="display: none;">
-                    <div class="menu-img">
-                        <img src="img/_MG_0164.jpg" alt="GOLLIATH DUPLO">
-                    </div>
-                    <div class="menu-info">
-                        <h3>GOLLIATH P.C.Q</h3>
-                        <p>Burger de 90g e American Cheese, no pão brioche tostado na manteiga.</p>
-                        <span class="price">R$ 19,90</span>
-                    </div>
-                </div>
-
-                <div class="menu-item additional-menu" style="display: none;">
-                    <div class="menu-img">
-                        <img src="img/_MG_0193.jpg" alt="GOLLIATH VEGGIE">
-                    </div>
-                    <div class="menu-info">
-                        <h3>GOLLIATH DUPLO P.C.Q</h3>
-                        <p>2x mais carne, 2x mais queijo. Com 2 Burguers de 90g totalizando 180g de carne, com fatias de American Cheese, no pão brioche tostado na manteiga.</p>
-                        <span class="price">R$ 29,90</span>
-                    </div>
-                </div>
-
-                <div class="menu-item additional-menu" style="display: none;">
-                    <div class="menu-img">
-                        <img src="img/_MG_0282.jpg" alt="GOLLIATH CHICKEN">
-                    </div>
-                    <div class="menu-info">
-                        <h3>GOLLIATH DUPLO BACON</h3>
-                        <p>O dobro de carne, queijo e bacon. Com 2 Burguers de 90g totalizando 180g de carne, com fatias de American Cheese, 2 fatias de bacon por andar, e molho especial de Golliath no pão brioche tostado na manteiga.</p>
-                        <span class="price">R$ 32,90</span>
-                    </div>
+                <!-- Cardápio será carregado dinamicamente via API -->
+                <div class="loading-message">
+                    <p>Carregando cardápio...</p>
                 </div>
             </div>
         </div>
@@ -430,6 +511,7 @@
 
 
 
-    <script src="js/script.js" defer></script>
+    <script src="js/mobile-debug.js?v=20250120-002"></script>
+    <script src="js/script.js?v=20250120-005" defer></script>
 </body>
 </html>

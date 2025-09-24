@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "nome": "X BACON DE GOLIATH",
+    "descricao": "Burger de 90g, com American Cheese, 2 fatias de bacon, molho especial de Golliath no pão brioche tostado na manteiga.",
+    "preco": 24.9,
+    "categoria": "hamburguers",
+    "imagem": "https://ik.imagekit.io/golliathburgers/produtos/x-bacon-goliath.jpg",
+    "disponivel": true,
+    "destaque": true,
+    "ordem": 1,
+    "isActive": true,
+    "createdAt": "2025-01-20T12:00:00+00:00",
+    "updatedAt": "2025-01-20T12:00:00+00:00"
+  },
+  {
+    "id": 2,
+    "nome": "GOLLIATH TRIPLO P.C.Q",
+    "descricao": "3x mais carne, 3x mais queijo. Com 3 Burguers de 90g totalizando 270g de carne, e com fatias de American Cheese, no pão brioche tostado na manteiga.",
+    "preco": 32.9,
+    "categoria": "hamburguers",
+    "imagem": "https://ik.imagekit.io/golliathburgers/produtos/triplo-pcq.jpg",
+    "disponivel": true,
+    "destaque": true,
+    "ordem": 2,
+    "isActive": true,
+    "createdAt": "2025-01-20T12:00:00+00:00",
+    "updatedAt": "2025-01-20T12:00:00+00:00"
+  },
+  {
+    "id": 3,
+    "nome": "GOLLIATH TRIPLO BACON",
+    "descricao": "3x mais carne, 3x mais queijo e 3x mais bacon. Com 3 Burguers de 90g totalizando 270g de carne, com fatias de American Cheese, 2 fatias de bacon por andar, e molho especial de Golliath no pão brioche tostado na manteiga.",
+    "preco": 39.9,
+    "categoria": "hamburguers",
+    "imagem": "https://ik.imagekit.io/golliathburgers/produtos/triplo-bacon.jpg",
+    "disponivel": true,
+    "destaque": true,
+    "ordem": 3,
+    "isActive": true,
+    "createdAt": "2025-01-20T12:00:00+00:00",
+    "updatedAt": "2025-01-20T12:00:00+00:00"
+  },
+  {
+    "id": 4,
+    "nome": "GOLLIATH OKLAHOMA",
+    "descricao": "4 burguers de 90g ao estilo Oklahoma, totalizando 360g de blend, com 4 fatias de queijo cheddar, no pão brioche selado na manteiga.",
+    "preco": 49.9,
+    "categoria": "hamburguers",
+    "imagem": "https://ik.imagekit.io/golliathburgers/produtos/oklahoma.jpg",
+    "disponivel": true,
+    "destaque": true,
+    "ordem": 4,
+    "isActive": true,
+    "createdAt": "2025-01-20T12:00:00+00:00",
+    "updatedAt": "2025-01-20T12:00:00+00:00"
+  },
+  {
+    "id": 12,
+    "nome": "GOLLIATH P.C.Q",
+    "descricao": "Burger de 90g, com queijo cheddar, molho especial de Golliath no pão brioche tostado na manteiga.",
+    "preco": 19.9,
+    "categoria": "hamburguers",
+    "imagem": "https://ik.imagekit.io/golliathburgers/produtos/golliath-pcq.jpg",
+    "disponivel": true,
+    "destaque": false,
+    "ordem": 1,
+    "isActive": true,
+    "createdAt": "2025-09-14T02:05:03.155+00:00",
+    "updatedAt": "2025-09-17T01:45:26.121Z"
+  }
+]

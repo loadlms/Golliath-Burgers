@@ -132,6 +132,37 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+// Rota de sincronização para verificar mudanças no cardápio
+router.get('/sync', async (req, res) => {
+  try {
+    // Obter timestamp da última modificação
+    const lastModified = await Cardapio.max('updatedAt');
+    const itemCount = await Cardapio.count({ where: { isActive: true } });
+    
+    // Gerar hash simples baseado no timestamp e quantidade de itens
+    const crypto = require('crypto');
+    const hashData = `${lastModified}-${itemCount}`;
+    const hash = crypto.createHash('md5').update(hashData).digest('hex');
+    
+    res.json({
+      success: true,
+      hash: hash,
+      timestamp: Date.now(),
+      version: '1.0',
+      lastModified: lastModified,
+      itemCount: itemCount
+    });
+    
+  } catch (error) {
+    console.error('Erro no endpoint de sincronização:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erro interno do servidor',
+      timestamp: Date.now()
+    });
+  }
+});
+
 // Buscar item por ID (público)
 router.get('/:id', async (req, res) => {
   try {

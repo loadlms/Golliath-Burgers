@@ -30,11 +30,7 @@ function setupEventListeners() {
         loginForm.addEventListener('submit', handleLogin);
     }
 
-    // Formulário de cadastro
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-        registerForm.addEventListener('submit', handleRegister);
-    }
+    // Formulário de cadastro removido - funcionalidade não mais disponível
 
     // Forma de pagamento
     const formaPagamento = document.getElementById('forma-pagamento');

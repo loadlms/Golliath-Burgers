@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Upload - Sistema Local</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .upload-container {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .preview-container {
+            margin: 20px 0;
+        }
+        .preview-image {
+            max-width: 300px;
+            max-height: 300px;
+            border: 1px solid #ddd;
+        }
+        .result {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teste de Upload - Sistema Local</h1>
+    
+    <div class="upload-container">
+        <h3>Upload de Imagem</h3>
+        <input type="file" id="imageFile" accept="image/*" required>
+        <br><br>
+        <button onclick="uploadImage()">Fazer Upload</button>
+    </div>
+    
+    <div class="preview-container">
+        <h3>Preview</h3>
+        <img id="preview" class="preview-image" style="display: none;">
+    </div>
+    
+    <div id="result" class="result" style="display: none;"></div>
+    
+    <div>
+        <h3>Ações Administrativas</h3>
+        <button onclick="listImages()">Listar Imagens</button>
+        <button onclick="deleteLastImage()">Deletar Última Imagem</button>
+    </div>
+    
+    <div id="imageList" class="result" style="display: none;"></div>
+
+    <script>
+        const API_BASE_URL = 'https://golliathburgers-hre2gzecp-loadlms-projects.vercel.app/api';
+        const token = 'demo-token-admin'; // Token de demonstração
+        let lastUploadedImage = null;
+        
+        // Preview da imagem selecionada
+        document.getElementById('imageFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        async function uploadImage() {
+            const fileInput = document.getElementById('imageFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showResult('Por favor, selecione uma imagem!', 'error');
+                return;
+            }
+            
+            try {
+                showResult('Enviando imagem...', 'info');
+                
+                // Converter para base64
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/cardapio/upload?token=${token}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                image: e.target.result,
+                                filename: file.name
+                            })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            lastUploadedImage = data.filename;
+                            showResult(`✅ Upload realizado com sucesso!<br>
+                                       📁 Arquivo: ${data.filename}<br>
+                                       🔗 URL: ${data.url}<br>
+                                       📏 Tamanho: ${(data.size / 1024).toFixed(2)} KB`, 'success');
+                        } else {
+                            showResult(`❌ Erro: ${data.message}`, 'error');
+                        }
+                    } catch (error) {
+                        console.error('Erro no upload:', error);
+                        showResult(`❌ Erro ao fazer upload: ${error.message}`, 'error');
+                    }
+                };
+                reader.readAsDataURL(file);
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                showResult(`❌ Erro: ${error.message}`, 'error');
+            }
+        }
+        
+        async function listImages() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/cardapio/images`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const imageList = document.getElementById('imageList');
+                    imageList.innerHTML = `
+                        <h3>📁 Imagens Encontradas (${data.count})</h3>
+                        ${data.images.map(img => `
+                            <div style="margin: 10px 0; padding: 10px; border: 1px solid #ddd;">
+                                📄 ${img.filename}<br>
+                                🔗 ${img.url}<br>
+                                📍 ${img.path}
+                            </div>
+                        `).join('')}
+                    `;
+                    imageList.style.display = 'block';
+                } else {
+                    showResult(`❌ Erro ao listar imagens: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showResult(`❌ Erro: ${error.message}`, 'error');
+            }
+        }
+        
+        async function deleteLastImage() {
+            if (!lastUploadedImage) {
+                showResult('❌ Nenhuma imagem foi enviada ainda!', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/cardapio/delete-image`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        filename: lastUploadedImage
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showResult(`✅ Imagem ${lastUploadedImage} deletada com sucesso!`, 'success');
+                    lastUploadedImage = null;
+                } else {
+                    showResult(`❌ Erro ao deletar: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showResult(`❌ Erro: ${error.message}`, 'error');
+            }
+        }
+        
+        function showResult(message, type) {
+            const result = document.getElementById('result');
+            result.innerHTML = message;
+            result.className = `result ${type}`;
+            result.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="burgerPattern" patternUnits="userSpaceOnUse" width="50" height="50">
+      <!-- Burger bun top -->
+      <ellipse cx="25" cy="15" rx="20" ry="8" fill="#deb887" opacity="0.3"/>
+      <!-- Lettuce -->
+      <path d="M8 20 Q25 18 42 20 Q35 25 25 24 Q15 25 8 20" fill="#90ee90" opacity="0.2"/>
+      <!-- Meat patty -->
+      <ellipse cx="25" cy="28" rx="18" ry="6" fill="#8b4513" opacity="0.4"/>
+      <!-- Cheese -->
+      <path d="M10 32 L40 32 L38 38 L12 38 Z" fill="#ffd700" opacity="0.3"/>
+      <!-- Burger bun bottom -->
+      <ellipse cx="25" cy="42" rx="20" ry="6" fill="#deb887" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="#2c1810"/>
+  <rect width="100%" height="100%" fill="url(#burgerPattern)"/>
+</svg>

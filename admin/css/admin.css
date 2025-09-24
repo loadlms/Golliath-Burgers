@@ -119,6 +119,177 @@ body {
     border: 1px solid #c8e6c9;
 }
 
+/* Mobile Debug Styles */
+.mobile-debug {
+    margin-top: 20px;
+    position: relative;
+}
+
+.debug-toggle {
+    width: 100%;
+    padding: 10px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.debug-toggle:hover {
+    background: #34495e;
+}
+
+.debug-panel {
+    display: none;
+    margin-top: 10px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.debug-panel.active {
+    display: block;
+}
+
+.debug-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.debug-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #495057;
+}
+
+.debug-clear {
+    padding: 5px 10px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.debug-clear:hover {
+    background: #c82333;
+}
+
+.debug-logs {
+    min-height: 100px;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.debug-log-entry {
+    margin-bottom: 5px;
+    padding: 3px 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.debug-log-entry:last-child {
+    border-bottom: none;
+}
+
+.debug-log-time {
+    color: #6c757d;
+    font-size: 10px;
+}
+
+.debug-log-level {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.debug-log-level.info {
+    color: #17a2b8;
+}
+
+.debug-log-level.error {
+    color: #dc3545;
+}
+
+.debug-log-level.success {
+    color: #28a745;
+}
+
+.debug-log-level.warning {
+    color: #ffc107;
+}
+
+.debug-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.debug-test-login,
+.debug-fill-form {
+    flex: 1;
+    min-width: 120px;
+    padding: 8px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.debug-test-login:hover,
+.debug-fill-form:hover {
+    background: #0056b3;
+}
+
+.debug-fill-form {
+    background: #28a745;
+}
+
+.debug-fill-form:hover {
+    background: #1e7e34;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .debug-panel {
+        max-height: 250px;
+    }
+    
+    .debug-logs {
+        max-height: 120px;
+        font-size: 11px;
+    }
+    
+    .debug-actions {
+        flex-direction: column;
+    }
+    
+    .debug-test-login,
+    .debug-fill-form {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
 /* Admin Dashboard */
 .admin-dashboard {
     min-height: 100vh;
@@ -127,7 +298,7 @@ body {
 }
 
 .admin-header {
-    background: #2a5298;
+    background: #2a5298 !important;
     color: white;
     padding: 1rem 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -249,7 +420,7 @@ body {
 
 .add-btn {
     padding: 0.75rem 1.5rem;
-    background: #2a5298;
+    background: #2a5298 !important;
     color: white;
     border: none;
     border-radius: 5px;
@@ -693,7 +864,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 1003;
 }
 
 .modal-content {
@@ -814,7 +985,7 @@ body {
     border: none;
     cursor: pointer;
     padding: 5px;
-    z-index: 1001;
+    z-index: 1004;
 }
 
 .admin-mobile-toggle span {
@@ -921,6 +1092,27 @@ body {
         display: block;
     }
     
+    /* Forçar exibição correta do dashboard no mobile */
+    .admin-dashboard {
+        position: relative !important;
+        z-index: 1002 !important;
+        width: 100% !important;
+        height: 100vh !important;
+        overflow-y: auto !important;
+    }
+    
+    /* Garantir que a tela de login seja completamente oculta */
+    .login-screen {
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    
+    .login-screen[style*="display: none"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    
     .cardapio-item {
         flex-direction: column;
         text-align: center;
@@ -933,6 +1125,16 @@ body {
     .modal-content {
         width: 95%;
         margin: 1rem;
+    }
+    
+    /* Garantir que modais fiquem acima de tudo no mobile */
+    .modal {
+        z-index: 1005 !important;
+    }
+    
+    .modal-content {
+        position: relative;
+        z-index: 1006 !important;
     }
     
     .admin-content {

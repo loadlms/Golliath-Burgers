@@ -86,7 +86,7 @@ Sistema completo de e-commerce para hamburgueria com site público responsivo, c
 - **JWT 9.0.2** autenticação
 - **bcryptjs 2.4.3** criptografia
 - **Multer 2.0.0** upload de arquivos
-- **ImageKit 5.2.0** armazenamento e processamento de imagens
+- **ImageKit 5.2.0** upload e processamento de imagens
 - **CORS 2.8.5** controle de acesso
 
 ### Deploy & DevOps
@@ -280,7 +280,7 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 - 📱 WhatsApp: +55 (11) 95754-8091
 - 📍 Endereço: Avenida Graciela Flores de Piteri, 255 - Aliança - Osasco - SP
 - 📷 Instagram: [@golliathburgers](https://instagram.com/golliathburgers)
-- 🌐 Site: [https://golliath-burgers.vercel.app](https://golliath-burgers.vercel.app)
+- 🌐 Site: [https://golliathburgers.vercel.app](https://golliathburgers.vercel.app)
 
 ---
 

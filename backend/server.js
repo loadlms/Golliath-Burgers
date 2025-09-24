@@ -157,8 +157,8 @@ async function startServer() {
     // Aguardar um pouco para garantir que as tabelas foram criadas
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Inicializar dados padrão
-    await initializeDefaultData();
+    // Inicializar dados padrão - COMENTADO PARA PARAR AUTOMAÇÃO
+    // await initializeDefaultData();
 
     // Iniciar servidor
     app.listen(PORT, () => {

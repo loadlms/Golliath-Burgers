@@ -80,7 +80,6 @@ body {
 
 /* Header */
 header {
-    background-color: var(--white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
@@ -93,8 +92,12 @@ header {
     padding: 15px 5%;
 }
 
+header:not(.header-with-bg) {
+    background-color: var(--white);
+}
+
 .header-with-bg {
-    background-image: url('../img/cabeçalho.png');
+    background-image: url('../img/cabecalho.png');
     background-size: cover;
     background-position: center;
 }
@@ -871,8 +874,12 @@ footer {
 /* Media Queries para Mobile */
 @media (max-width: 768px) {
     header {
-        position: relative;
+        position: fixed;
         padding: 10px 3%;
+        background-image: url('../images/header-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
     
     .logo img {
