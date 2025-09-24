@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="cache-version" content="v20250120-001">
     <title>Carrinho - Golliath Burgers</title>
     <link rel="icon" type="image/png" href="img/logoGB-removebg-preview.png">
     <!-- CSS Crítico Inline para Vercel -->
@@ -74,10 +78,162 @@
     <link rel="stylesheet" href="css/carrinho.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Polyfills para compatibilidade com dispositivos mais antigos -->
+    <script>
+        // Polyfill para fetch
+        if (!window.fetch) {
+            window.fetch = function(url, options) {
+                return new Promise(function(resolve, reject) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open(options && options.method || 'GET', url);
+                    
+                    if (options && options.headers) {
+                        for (var key in options.headers) {
+                            xhr.setRequestHeader(key, options.headers[key]);
+                        }
+                    }
+                    
+                    xhr.onload = function() {
+                        resolve({
+                            ok: xhr.status >= 200 && xhr.status < 300,
+                            status: xhr.status,
+                            statusText: xhr.statusText,
+                            json: function() { return Promise.resolve(JSON.parse(xhr.responseText)); },
+                            text: function() { return Promise.resolve(xhr.responseText); }
+                        });
+                    };
+                    
+                    xhr.onerror = function() { reject(new Error('Network error')); };
+                    xhr.send(options && options.body || null);
+                });
+            };
+        }
+        
+        // Polyfill para Promise
+        if (!window.Promise) {
+            window.Promise = function(executor) {
+                var self = this;
+                self.state = 'pending';
+                self.value = undefined;
+                self.handlers = [];
+                
+                function resolve(result) {
+                    if (self.state === 'pending') {
+                        self.state = 'fulfilled';
+                        self.value = result;
+                        self.handlers.forEach(handle);
+                        self.handlers = null;
+                    }
+                }
+                
+                function reject(error) {
+                    if (self.state === 'pending') {
+                        self.state = 'rejected';
+                        self.value = error;
+                        self.handlers.forEach(handle);
+                        self.handlers = null;
+                    }
+                }
+                
+                function handle(handler) {
+                    if (self.state === 'pending') {
+                        self.handlers.push(handler);
+                    } else {
+                        if (self.state === 'fulfilled' && typeof handler.onFulfilled === 'function') {
+                            handler.onFulfilled(self.value);
+                        }
+                        if (self.state === 'rejected' && typeof handler.onRejected === 'function') {
+                            handler.onRejected(self.value);
+                        }
+                    }
+                }
+                
+                this.then = function(onFulfilled, onRejected) {
+                    return new Promise(function(resolve, reject) {
+                        handle({
+                            onFulfilled: function(result) {
+                                try {
+                                    resolve(onFulfilled ? onFulfilled(result) : result);
+                                } catch (ex) {
+                                    reject(ex);
+                                }
+                            },
+                            onRejected: function(error) {
+                                try {
+                                    resolve(onRejected ? onRejected(error) : Promise.reject(error));
+                                } catch (ex) {
+                                    reject(ex);
+                                }
+                            }
+                        });
+                    });
+                };
+                
+                executor(resolve, reject);
+            };
+            
+            Promise.resolve = function(value) {
+                return new Promise(function(resolve) { resolve(value); });
+            };
+            
+            Promise.reject = function(reason) {
+                return new Promise(function(resolve, reject) { reject(reason); });
+            };
+        }
+        
+        // Polyfill para Array.prototype.find
+        if (!Array.prototype.find) {
+            Array.prototype.find = function(predicate) {
+                for (var i = 0; i < this.length; i++) {
+                    if (predicate(this[i], i, this)) {
+                        return this[i];
+                    }
+                }
+                return undefined;
+            };
+        }
+        
+        // Polyfill para Array.prototype.includes
+        if (!Array.prototype.includes) {
+            Array.prototype.includes = function(searchElement) {
+                return this.indexOf(searchElement) !== -1;
+            };
+        }
+        
+        // Polyfill para Element.prototype.closest
+        if (!Element.prototype.closest) {
+            Element.prototype.closest = function(selector) {
+                var element = this;
+                while (element && element.nodeType === 1) {
+                    if (element.matches && element.matches(selector)) {
+                        return element;
+                    }
+                    element = element.parentElement;
+                }
+                return null;
+            };
+        }
+        
+        // Polyfill para Element.prototype.matches
+        if (!Element.prototype.matches) {
+            Element.prototype.matches = Element.prototype.matchesSelector ||
+                Element.prototype.mozMatchesSelector ||
+                Element.prototype.msMatchesSelector ||
+                Element.prototype.oMatchesSelector ||
+                Element.prototype.webkitMatchesSelector ||
+                function(s) {
+                    var matches = (this.document || this.ownerDocument).querySelectorAll(s);
+                    var i = matches.length;
+                    while (--i >= 0 && matches.item(i) !== this) {}
+                    return i > -1;
+                };
+        }
+    </script>
 </head>
 <body>
     <!-- Header -->
-    <header class="header" style="background-image: url('img/cabeçalho.png'); background-size: cover;">
+    <header class="header" style="background-image: url('img/cabecalho.png'); background-size: cover;">
         <div class="logo">
             <a href="index.html#home">
                 <img src="img/logoGB.PNG" alt="Golliath Burgers Logo">
@@ -224,6 +380,7 @@
                         <select id="forma-pagamento" onchange="handleFormaPagamentoChange()">
                             <option value="dinheiro">Dinheiro</option>
                             <option value="pix">PIX</option>
+                            <option value="cartao">Cartão</option>
                         </select>
                     </div>
                     
@@ -270,6 +427,6 @@
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/carrinho.js"></script>
+    <script src="js/carrinho.js?v=20250120-001"></script>
 </body>
 </html>

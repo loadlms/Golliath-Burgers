@@ -31,7 +31,7 @@ node server.js
 - **Navegação pelo cardápio** dinâmico e responsivo
 - **Carrinho de compras** com persistência local
 - **Checkout completo** com dados de entrega
-- **Pagamento** via Dinheiro ou PIX
+- **Pagamento** via Dinheiro, PIX ou Cartão
 - **Finalização automática** via WhatsApp
 
 ### 👨‍💼 Para Administradores:
@@ -57,7 +57,7 @@ node server.js
 - **Sistema de carrinho** completo com localStorage
 - **Checkout integrado** com formulário de entrega
 - **Integração WhatsApp** para finalização de pedidos
-- **Múltiplas formas de pagamento** (Dinheiro, PIX)
+- **Múltiplas formas de pagamento** (Dinheiro, PIX, Cartão)
 - **Feed Instagram** e seção "Sobre Nós"
 
 ### ✅ Painel Administrativo

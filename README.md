@@ -1,322 +1,287 @@
-# 🍔 Golliath Burgers - Sistema de Gerenciamento Completo
+# 🍔 Golliath Burgers - Sistema Completo de E-commerce
 
-Sistema completo de e-commerce para hamburgueria com site público, carrinho de compras, sistema de pedidos e painel administrativo avançado.
+[![Deploy Status](https://img.shields.io/badge/Deploy-Live-brightgreen)](https://golliathburgers.vercel.app)
+[![Node.js](https://img.shields.io/badge/Node.js-22.x-green)](https://nodejs.org/)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black)](https://vercel.com)
+[![Supabase](https://img.shields.io/badge/Database-Supabase-green)](https://supabase.com)
+
+> **🌐 Site ao vivo:** [https://golliathburgers.vercel.app](https://golliathburgers.vercel.app)
+
+Sistema completo de e-commerce para hamburgueria com site público responsivo, carrinho de compras, sistema de pedidos via WhatsApp e painel administrativo avançado. Desenvolvido com arquitetura serverless e banco de dados em nuvem.
 
 ## 🚀 Funcionalidades Principais
 
 ### 🌐 Frontend (Site Público)
 - ✅ **Design responsivo e moderno** com tema personalizado
 - ✅ **Cardápio dinâmico** carregado da API em tempo real
-- ✅ **Sistema de carrinho de compras** completo
+- ✅ **Sistema de carrinho de compras** completo com localStorage
 - ✅ **Checkout integrado** com formulário de entrega
 - ✅ **Integração WhatsApp** para finalização de pedidos
-- ✅ **Atualização automática** do cardápio (polling a cada 2s)
+- ✅ **Atualização automática** do cardápio (polling inteligente)
 - ✅ **Seção "Sobre Nós"** com informações da empresa
 - ✅ **Feed do Instagram** com galeria de fotos
 - ✅ **Informações de contato** e localização dinâmicas
 - ✅ **Footer com redes sociais** (Instagram e iFood)
-- ✅ **Favicon personalizado** em todas as páginas
-- ✅ **Smooth scrolling** e efeitos visuais
-- ✅ **Responsividade completa** para mobile e desktop
+- ✅ **PWA Ready** com favicon e meta tags otimizadas
+- ✅ **Smooth scrolling** e efeitos visuais avançados
+- ✅ **Responsividade completa** para todos os dispositivos
+- ✅ **Cache inteligente** com versionamento automático
 
 ### 🛒 Sistema de E-commerce
-- ✅ **Carrinho persistente** (localStorage)
+- ✅ **Carrinho persistente** com localStorage
 - ✅ **Adição/remoção de itens** com feedback visual
 - ✅ **Controle de quantidade** por item
 - ✅ **Cálculo automático** de subtotal e total
 - ✅ **Página dedicada do carrinho** (carrinho.html)
-- ✅ **Formulário de checkout** com validação
-- ✅ **Múltiplas formas de pagamento** (Dinheiro, PIX)
+- ✅ **Formulário de checkout** com validação completa
+- ✅ **Múltiplas formas de pagamento** (Dinheiro, PIX, Cartão)
 - ✅ **Campo para troco** quando pagamento em dinheiro
 - ✅ **Observações do pedido** personalizáveis
 - ✅ **Geração automática** de número do pedido
-- ✅ **Redirecionamento automático** para WhatsApp com detalhes
+- ✅ **Redirecionamento automático** para WhatsApp com detalhes formatados
 
-### 🔧 Backend (API Node.js + Express)
-- ✅ **Autenticação JWT** para administradores
+### 🔧 Backend (API Serverless)
+- ✅ **Arquitetura serverless** otimizada para Vercel
+- ✅ **Autenticação JWT** segura para administradores
 - ✅ **CRUD completo do cardápio** com upload de imagens
-- ✅ **Sistema de pedidos** com status tracking
-- ✅ **Gerenciamento de clientes** (futuro)
-- ✅ **Configurações dinâmicas** do site
-- ✅ **Banco de dados SQLite** com Sequelize ORM
-- ✅ **Middleware de autenticação** e validação
-- ✅ **Upload de imagens** com Multer
-- ✅ **Relacionamentos** entre modelos
-- ✅ **Inicialização automática** de dados padrão
-- ✅ **Tratamento de erros** robusto
-- ✅ **CORS configurado** para desenvolvimento
+- ✅ **Sistema híbrido** Supabase + cache local
+- ✅ **Circuit breaker** para alta disponibilidade
+- ✅ **Monitoramento avançado** com métricas em tempo real
+- ✅ **Upload de imagens** via ImageKit
+- ✅ **Fallback inteligente** para SQLite local
+- ✅ **Tratamento robusto de erros** e logging
+- ✅ **CORS configurado** para produção
+- ✅ **Compressão automática** de respostas
+- ✅ **Rate limiting** e proteção contra ataques
 
 ### 🎛️ Painel Administrativo
-- ✅ **Login seguro** com e-mail e senha criptografada
+- ✅ **Login seguro** com autenticação JWT
 - ✅ **Dashboard intuitivo** com navegação por abas
 - ✅ **Gerenciamento completo do cardápio:**
   - Adicionar/editar/remover itens
-  - Upload de imagens dos produtos
+  - Upload de imagens com preview
   - Controle de ordem e destaque
   - Ativação/desativação de itens
+  - Categorização automática
+- ✅ **Interface responsiva** para mobile e desktop
+- ✅ **Feedback visual** para todas as ações
+- ✅ **Validação de formulários** em tempo real
+
+## 🛠️ Tecnologias Utilizadas
+
+### Frontend
+- **HTML5** com semântica moderna
+- **CSS3** com variáveis CSS e Flexbox/Grid
+- **JavaScript ES6+** vanilla com módulos
+- **Font Awesome 6.4.0** para ícones
+- **Google Fonts** (Oswald + Roboto)
+- **PWA** com service worker
+
+### Backend
+- **Node.js 22.x** com ES6+ features
+- **Express.js 4.19.2** framework web
+- **Supabase 2.57.4** banco de dados principal
+- **SQLite 5.1.7** fallback local
+- **Sequelize 6.37.3** ORM
+- **JWT 9.0.2** autenticação
+- **bcryptjs 2.4.3** criptografia
+- **Multer 2.0.0** upload de arquivos
+- **ImageKit 5.2.0** armazenamento e processamento de imagens
+- **CORS 2.8.5** controle de acesso
+
+### Deploy & DevOps
+- **Vercel** plataforma serverless
+- **GitHub** controle de versão
+- **dotenv 16.4.5** variáveis de ambiente
+- **Nodemon 3.0.1** desenvolvimento
 
 ## 📋 Pré-requisitos
 
-- Node.js (versão 14 ou superior)
-- Navegador web moderno
-- **Banco de dados:** SQLite (incluído, não requer instalação)
+- Node.js 22.x ou superior
+- Conta no Vercel (para deploy)
+- Conta no Supabase (banco de dados)
+- Conta no ImageKit (upload de imagens)
 
-## 🛠️ Instalação
+## 🚀 Instalação e Configuração
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/loadlms/Golliath-Burgers
+git clone https://github.com/seu-usuario/golliath-burgers.git
 cd golliath-burgers
 ```
 
-### 2. Instale as dependências do backend
+### 2. Instale as dependências
 ```bash
-cd backend
+# Dependências principais
+npm install
+
+# Dependências da API
+cd api
 npm install
 ```
 
-### 3. Configure o ambiente (opcional)
-O sistema usa **SQLite** que é criado automaticamente. Se necessário, edite o arquivo `backend/config.env`:
+### 3. Configure as variáveis de ambiente
+
+Copie o arquivo `.env.example` para `.env` e configure:
+
 ```env
-JWT_SECRET=sua_chave_secreta_aqui
-ADMIN_EMAIL=admin@golliath.com
-ADMIN_PASSWORD=
-PORT=3000
+# Supabase Configuration
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# JWT Configuration
+JWT_SECRET=your_jwt_secret_key
+
+# ImageKit Configuration
+IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
+IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
+IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
+
+# Environment
+NODE_ENV=development
 ```
 
-### 4. Inicie o servidor
+### 4. Configure o banco de dados Supabase
+
+Execute o SQL no painel do Supabase:
+
+```sql
+-- Criar tabela cardapio
+CREATE TABLE cardapio (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  descricao TEXT,
+  preco DECIMAL(10,2) NOT NULL,
+  categoria VARCHAR(100),
+  imagem TEXT,
+  disponivel BOOLEAN DEFAULT true,
+  destaque BOOLEAN DEFAULT false,
+  ordem INTEGER DEFAULT 0,
+  isActive BOOLEAN DEFAULT true,
+  createdAt TIMESTAMPTZ DEFAULT NOW(),
+  updatedAt TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Inserir dados de exemplo
+INSERT INTO cardapio (nome, descricao, preco, categoria, disponivel, destaque, ordem) VALUES
+('Golliath Classic', 'Hambúrguer artesanal com blend especial, queijo, alface, tomate e molho da casa', 25.90, 'Hambúrgueres', true, true, 1),
+('Bacon Lovers', 'Hambúrguer com muito bacon, queijo cheddar, cebola caramelizada e molho barbecue', 28.90, 'Hambúrgueres', true, false, 2);
+```
+
+### 5. Deploy no Vercel
+
 ```bash
-cd backend
-node server.js
+# Instalar Vercel CLI
+npm i -g vercel
+
+# Fazer deploy
+vercel
+
+# Configurar variáveis de ambiente no painel do Vercel
 ```
 
-O servidor estará rodando em `http://localhost:3000`
+## 🔐 Acesso ao Sistema
 
-## 🔐 Acesso ao Painel Administrativo
+### Site Público
+- **URL:** [https://golliath-burgers.vercel.app](https://golliath-burgers.vercel.app)
+- Navegue pelo cardápio, adicione itens ao carrinho e finalize via WhatsApp
 
-### Credenciais padrão:
-- **URL:** `http://localhost:3000/admin`
+### Painel Administrativo
+- **URL:** [https://golliath-burgers.vercel.app/admin](https://golliath-burgers.vercel.app/admin)
 - **E-mail:** `admin@golliath.com`
-- **Senha:** Compartilhada apenas com o admin!
+- **Senha:** Configurada no sistema
 
 ## 📁 Estrutura do Projeto
 
 ```
 golliath-burgers/
-├── backend/                    # Servidor Node.js + Express
-│   ├── config/
-│   │   └── database.js        # Configuração do banco SQLite
-│   ├── models/                # Modelos Sequelize
-│   │   ├── Admin.js          # Modelo de administradores
-│   │   ├── Cliente.js        # Modelo de clientes
-│   │   ├── Cardapio.js       # Modelo do cardápio
-│   │   ├── Pedido.js         # Modelo de pedidos
-│   │   └── SiteInfo.js       # Configurações do site
-│   ├── routes/               # Rotas da API
-│   │   ├── auth.js          # Autenticação JWT
-│   │   ├── clientes.js      # CRUD de clientes
-│   │   ├── cardapio.js      # CRUD do cardápio
-│   │   ├── pedidos.js       # Sistema de pedidos
-│   │   └── siteInfo.js      # Configurações dinâmicas
-│   ├── middleware/
-│   │   └── auth.js          # Middleware de autenticação
-│   ├── uploads/             # Arquivos enviados
-│   ├── server.js            # Servidor principal
-│   ├── package.json         # Dependências do backend
-│   └── config.env           # Variáveis de ambiente
-├── admin/                   # Painel administrativo
-│   ├── index.html          # Interface do admin
-│   ├── admin.js            # Lógica do painel
-│   └── admin.css           # Estilos do admin
-├── css/
-│   └── style.css           # Estilos do site público
-├── js/
-│   ├── script.js           # Lógica da página principal
-│   └── carrinho.js         # Sistema de carrinho e checkout
-├── img/
-│   ├── produtos/           # Imagens dos produtos
-│   ├── logo.png            # Logo da empresa
-│   ├── favicon.ico         # Favicon do site
-│   └── [outras imagens]    # Assets visuais
-├── index.html              # Página principal
-├── carrinho.html           # Página do carrinho
-├── database.sqlite         # Banco de dados SQLite
-└── README.md               # Documentação
+├── 📁 api/                     # API Serverless
+│   ├── 📁 auth/               # Autenticação
+│   ├── 📁 utils/              # Utilitários
+│   │   ├── vercelDatabase.js  # Gerenciador híbrido de BD
+│   │   ├── supabase.js        # Cliente Supabase
+│   │   ├── monitoring.js      # Monitoramento
+│   │   └── imageUpload.js     # Upload de imagens
+│   ├── index.js               # API principal
+│   └── package.json           # Dependências da API
+├── 📁 admin/                  # Painel administrativo
+│   ├── index.html            # Interface do admin
+│   ├── 📁 css/               # Estilos do admin
+│   └── 📁 js/                # Scripts do admin
+├── 📁 backend/               # Backend local (desenvolvimento)
+│   ├── 📁 models/            # Modelos Sequelize
+│   ├── 📁 routes/            # Rotas Express
+│   ├── 📁 middleware/        # Middlewares
+│   └── server.js             # Servidor local
+├── 📁 css/                   # Estilos do frontend
+├── 📁 js/                    # Scripts do frontend
+├── 📁 img/                   # Imagens estáticas
+├── index.html                # Página principal
+├── carrinho.html             # Página do carrinho
+├── vercel.json               # Configuração Vercel
+└── package.json              # Dependências principais
 ```
 
-## 🔧 Configuração do Banco de Dados
+## 🔧 Scripts Disponíveis
 
-O sistema criará automaticamente as seguintes tabelas:
-
-- **admins** - Administradores do sistema
-- **clientes** - Cadastro de clientes (estrutura preparada)
-- **cardapio** - Itens do menu com imagens e categorias
-- **pedidos** - Sistema completo de pedidos
-- **site_info** - Configurações dinâmicas do site
-
-## 📱 Como Usar
-
-### 👨‍💼 Para Administradores:
-
-1. **Acesse o painel:** `http://localhost:3000/admin`
-2. **Faça login** com as credenciais padrão
-3. **Gerencie o cardápio:**
-   - Adicione novos itens com upload de imagens
-   - Edite preços, descrições e categorias
-   - Controle ordem de exibição e itens em destaque
-   - Ative/desative itens conforme disponibilidade
-
-### 🍔 Para Clientes:
-
-1. **Acesse o site:** `http://localhost:3000`
-2. **Navegue pelo cardápio** dinâmico
-3. **Adicione itens ao carrinho** com um clique
-4. **Acesse o carrinho:** `http://localhost:3000/carrinho.html`
-5. **Finalize seu pedido:**
-   - Preencha dados de entrega
-   - Escolha forma de pagamento (Dinheiro/PIX)
-   - Adicione observações se necessário
-   - Confirme e seja redirecionado para WhatsApp
-6. **Acompanhe seu pedido** via WhatsApp
-
-## 🔒 Segurança
-
-- Senhas criptografadas com bcrypt
-- Autenticação JWT
-- Validação de dados
-- Proteção contra SQL injection
-- CORS configurado
-
-## 🛠️ Tecnologias Utilizadas
-
-### Frontend:
-- **HTML5** - Estrutura semântica
-- **CSS3** - Estilos responsivos e animações
-- **JavaScript ES6+** - Lógica do cliente
-- **LocalStorage** - Persistência do carrinho
-- **Fetch API** - Comunicação com backend
-
-### Backend:
-- **Node.js** - Runtime JavaScript
-- **Express.js** - Framework web
-- **Sequelize** - ORM para banco de dados
-- **SQLite** - Banco de dados leve
-- **JWT** - Autenticação segura
-- **bcrypt** - Criptografia de senhas
-- **Multer** - Upload de arquivos
-- **CORS** - Política de origem cruzada
-
-## 🚀 Deploy
-
-### Para produção:
-
-1. **Configure variáveis de ambiente:**
-```env
-NODE_ENV=production
-JWT_SECRET=chave_secreta_muito_forte_aqui
-ADMIN_EMAIL=admin@golliathburgers.com
-ADMIN_PASSWORD=senha_segura_aqui
-PORT=3000
-```
-
-2. **Instale PM2 (gerenciador de processos):**
 ```bash
-npm install -g pm2
+# Desenvolvimento local
+npm run dev
+
+# Produção local
+npm start
+
+# Deploy no Vercel
+vercel --prod
+
+# Verificar status de produção
+node check-prod-final.js
+
+# Sincronizar dados com Supabase
+node force-sync-prod.js
 ```
 
-3. **Inicie o servidor:**
-```bash
-cd backend
-pm2 start server.js --name golliath-burgers
-```
+## 🌟 Funcionalidades Avançadas
 
-4. **Configure proxy reverso (Nginx):**
-```nginx
-server {
-    listen 80;
-    server_name seudominio.com;
-    
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
+### Sistema Híbrido de Banco de Dados
+- **Supabase** como banco principal em produção
+- **SQLite** como fallback para desenvolvimento
+- **Circuit breaker** para alta disponibilidade
+- **Sincronização automática** entre ambientes
 
-## 🐛 Solução de Problemas
+### Monitoramento e Performance
+- **Métricas em tempo real** de uso da API
+- **Logging avançado** de erros e performance
+- **Cache inteligente** com invalidação automática
+- **Compressão** de respostas para otimização
 
-### ❌ Erro de conexão com banco:
-- O sistema usa **SQLite** (não requer instalação)
-- Verifique se o arquivo `database.sqlite` foi criado
-- Confirme as permissões de escrita na pasta do projeto
-- Reinicie o servidor se necessário
+### Segurança
+- **Autenticação JWT** com refresh tokens
+- **Validação** de entrada em todas as rotas
+- **Rate limiting** para prevenir ataques
+- **CORS** configurado adequadamente
+- **Sanitização** de dados de entrada
 
-### 🌐 Erro de CORS:
-- Verifique se o frontend está acessando `http://localhost:3000`
-- Confirme se o servidor backend está rodando
-- Verifique se não há conflito de portas
+## 🤝 Contribuição
 
-### 🖼️ Imagens não carregam:
-- Verifique se as imagens existem em `img/produtos/`
-- Confirme se os caminhos estão corretos na API
-- Verifique permissões de leitura da pasta `img/`
-
-### 🛒 Carrinho não funciona:
-- Verifique se o JavaScript está habilitado
-- Limpe o localStorage: `localStorage.clear()`
-- Confirme se a API está respondendo corretamente
-
-### 📱 WhatsApp não abre:
-- Verifique se o número está configurado corretamente
-- Teste em dispositivo móvel (WhatsApp instalado)
-- Confirme se a URL está sendo gerada corretamente
-
-### 🔐 Problemas de login admin:
-- Use as credenciais padrão do `.env`
-- Verifique se o token JWT não expirou
-- Limpe o localStorage e tente novamente
-
-## 🔌 APIs Disponíveis
-
-### 🔐 Autenticação (`/api/auth`)
-- `POST /login` - Login de administrador
-- `POST /verify` - Verificar token JWT
-
-### 🍔 Cardápio (`/api/cardapio`)
-- `GET /` - Listar itens ativos (público)
-- `GET /admin/all` - Listar todos os itens (admin)
-- `GET /:id` - Buscar item por ID (público)
-- `POST /` - Criar novo item (admin)
-- `PUT /:id` - Atualizar item (admin)
-- `DELETE /:id` - Desativar item (admin)
-
-### 📋 Pedidos (`/api/pedidos`)
-- `GET /` - Listar todos os pedidos (admin)
-- `POST /` - Criar novo pedido (público)
-- `PUT /:id` - Atualizar status do pedido (admin)
-
-### 👥 Clientes (`/api/clientes`)
-- `GET /` - Listar clientes (admin)
-- `POST /` - Cadastrar cliente (público)
-- `GET /:id` - Buscar cliente por ID (admin)
-- `PUT /:id` - Atualizar cliente (admin)
-- `DELETE /:id` - Remover cliente (admin)
-
-### ⚙️ Configurações (`/api/siteinfo`)
-- `GET /` - Buscar configurações (público)
-- `PUT /` - Atualizar configurações (admin)
-
-## 📞 Suporte
-
-Para dúvidas ou problemas:
-- Abra uma issue no repositório
-- Entre em contato via e-mail
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT.
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+## 📞 Contato
+
+**Golliath Burgers**
+- 📱 WhatsApp: +55 (11) 95754-8091
+- 📍 Endereço: Avenida Graciela Flores de Piteri, 255 - Aliança - Osasco - SP
+- 📷 Instagram: [@golliathburgers](https://instagram.com/golliathburgers)
+- 🌐 Site: [https://golliath-burgers.vercel.app](https://golliath-burgers.vercel.app)
 
 ---
 
-**Desenvolvido com ❤️ para o Golliath Burgers**
+⭐ **Desenvolvido com ❤️ para a melhor experiência em delivery de hambúrgueres artesanais!**
