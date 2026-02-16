@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config({ path: './config.env' });
+require('dotenv').config({ path: path.join(__dirname, 'config.env') });
 
 // Importar modelos
 const Admin = require('./models/Admin');
@@ -54,9 +54,9 @@ async function initializeDefaultData() {
     // Criar admin padrão se não existir
     const adminEmail = process.env.ADMIN_EMAIL || 'admin@golliath.com';
     const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
-    
+
     const adminExists = await Admin.findOne({ where: { email: adminEmail } });
-    
+
     if (!adminExists) {
       const newAdmin = await Admin.create({
         email: adminEmail,
@@ -148,7 +148,7 @@ async function startServer() {
   try {
     // Configurar relacionamentos
     setupAssociations();
-    
+
     // Sincronizar modelos com o banco (força criação em produção)
     const isProduction = process.env.NODE_ENV === 'production';
     await sequelize.sync({ force: isProduction });

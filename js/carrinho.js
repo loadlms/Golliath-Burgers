@@ -6,7 +6,7 @@ let currentPedido = null;
 const API_BASE_URL = '/api';
 
 // Inicializar página
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadCart();
     updateCartDisplay();
     setupEventListeners();
@@ -47,7 +47,7 @@ function setupMasks() {
     // Máscara para telefone
     const telefoneInput = document.getElementById('reg-telefone');
     if (telefoneInput) {
-        telefoneInput.addEventListener('input', function(e) {
+        telefoneInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length <= 11) {
                 value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
@@ -59,7 +59,7 @@ function setupMasks() {
     // Máscara para CEP
     const cepInput = document.getElementById('reg-cep');
     if (cepInput) {
-        cepInput.addEventListener('input', function(e) {
+        cepInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length <= 8) {
                 value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
@@ -74,7 +74,7 @@ function aplicarMascaras() {
     // Máscara para telefone
     const telefoneInput = document.getElementById('perfil-telefone');
     if (telefoneInput) {
-        telefoneInput.addEventListener('input', function(e) {
+        telefoneInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length <= 11) {
                 value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
@@ -86,7 +86,7 @@ function aplicarMascaras() {
     // Máscara para CEP
     const cepInput = document.getElementById('perfil-cep');
     if (cepInput) {
-        cepInput.addEventListener('input', function(e) {
+        cepInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length <= 8) {
                 value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
@@ -97,9 +97,13 @@ function aplicarMascaras() {
 }
 
 // Carregar carrinho
+// Carregar carrinho
 function loadCart() {
     const cartItems = document.getElementById('carrinho-items');
-    
+
+    // Sempre atualizar o resumo para garantir que totais estejam corretos (mesmo 0)
+    updateResumo();
+
     if (cart.length === 0) {
         cartItems.innerHTML = `
             <div class="empty-cart">
@@ -111,9 +115,13 @@ function loadCart() {
                 </button>
             </div>
         `;
-        document.getElementById('btn-checkout').disabled = true;
+        const btnCheckout = document.getElementById('btn-checkout');
+        if (btnCheckout) btnCheckout.disabled = true;
         return;
     }
+
+    const btnCheckout = document.getElementById('btn-checkout');
+    if (btnCheckout) btnCheckout.disabled = false;
 
     cartItems.innerHTML = cart.map(item => `
         <div class="carrinho-item">
@@ -134,8 +142,6 @@ function loadCart() {
             </div>
         </div>
     `).join('');
-
-    updateResumo();
 }
 
 // Atualizar quantidade
@@ -149,6 +155,7 @@ function updateQuantity(id, change) {
             localStorage.setItem('cart', JSON.stringify(cart));
             loadCart();
             updateCartDisplay();
+            updateResumo(); // Forçar atualização do resumo
         }
     }
 }
@@ -159,18 +166,25 @@ function removeFromCart(id) {
     localStorage.setItem('cart', JSON.stringify(cart));
     loadCart();
     updateCartDisplay();
+    updateResumo(); // Forçar atualização do resumo
 }
 
+// Atualizar display do carrinho
 // Atualizar display do carrinho
 function updateCartDisplay() {
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
     const cartIcon = document.getElementById('cart-icon');
-    
+    const cartCountMobile = document.querySelector('.cart-count-mobile');
+
     if (cartIcon) {
         cartIcon.innerHTML = `
             <i class="fas fa-shopping-cart"></i>
             <span class="cart-count">${cartCount}</span>
         `;
+    }
+
+    if (cartCountMobile) {
+        cartCountMobile.textContent = cartCount;
     }
 }
 
@@ -233,7 +247,7 @@ function showOrderInfo() {
 function handleFormaPagamentoChange() {
     const formaPagamento = document.getElementById('forma-pagamento').value;
     const trocoGroup = document.getElementById('troco-group');
-    
+
     if (formaPagamento === 'dinheiro') {
         trocoGroup.style.display = 'block';
     } else {
@@ -247,7 +261,7 @@ async function confirmOrder() {
     const nome = document.getElementById('customer-nome').value.trim();
     const telefone = document.getElementById('customer-telefone').value.trim();
     const endereco = document.getElementById('customer-endereco').value.trim();
-    
+
     if (!nome || !telefone || !endereco) {
         alert('Por favor, preencha todas as informações de entrega!');
         return;
@@ -281,18 +295,18 @@ async function confirmOrder() {
 
         if (data.success) {
             currentPedido = data.pedido;
-            
+
             // Salvar uma cópia dos itens do carrinho antes de limpar
             const cartItems = [...cart];
-            
+
             // Limpar carrinho
             cart = [];
             localStorage.removeItem('cart');
             updateCartDisplay();
-            
+
             // Fechar modal de checkout
             document.getElementById('checkout-modal').style.display = 'none';
-            
+
             // Redirecionar automaticamente para o WhatsApp
             setTimeout(() => {
                 sendWhatsAppWithOrderDetails(cartItems);
@@ -309,20 +323,20 @@ async function confirmOrder() {
 // Função para enviar detalhes do pedido via WhatsApp
 function sendWhatsAppWithOrderDetails(cartItems) {
     if (!currentPedido) return;
-    
+
     // Usar os itens do carrinho passados como parâmetro ou o carrinho atual como fallback
     const items = cartItems || cart;
-    
+
     // Obter informações de entrega do formulário
     const nome = document.getElementById('customer-nome').value.trim();
     const telefone = document.getElementById('customer-telefone').value.trim();
     const endereco = document.getElementById('customer-endereco').value.trim();
-    
+
     // Formatar itens do pedido
-    const itensFormatados = items.map(item => 
+    const itensFormatados = items.map(item =>
         `${item.quantity}x ${item.nome} - R$ ${(item.preco * item.quantity).toFixed(2)}`
     ).join('\n');
-    
+
     // Criar mensagem detalhada
     const message = `*PEDIDO #${currentPedido.numero_pedido}*\n\n` +
         `*Cliente:* ${nome}\n` +
@@ -333,11 +347,11 @@ function sendWhatsAppWithOrderDetails(cartItems) {
         `*Forma de pagamento:* ${document.getElementById('forma-pagamento').value}` +
         (document.getElementById('troco').value ? `\n*Troco para:* R$ ${document.getElementById('troco').value}` : '') +
         (document.getElementById('order-observacoes').value ? `\n\n*Observações:* ${document.getElementById('order-observacoes').value}` : '');
-    
+
     // Abrir WhatsApp com a mensagem
     const whatsappUrl = `https://wa.me/5511957548091?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-    
+
     // Fechar o modal de checkout
     document.getElementById('checkout-modal').style.display = 'none';
 }
@@ -347,7 +361,7 @@ function showSuccessModal() {
     document.getElementById('checkout-modal').style.display = 'none';
     document.getElementById('numero-pedido').textContent = currentPedido.numero_pedido;
     document.getElementById('success-modal').style.display = 'flex';
-    
+
     // Limpar carrinho
     cart = [];
     localStorage.removeItem('cart');
@@ -357,7 +371,7 @@ function showSuccessModal() {
 // Enviar via WhatsApp (para o botão no modal de sucesso)
 function sendWhatsApp() {
     if (!currentPedido) return;
-    
+
     // Recuperar os itens do pedido a partir do objeto currentPedido
     try {
         // O campo itens do pedido é armazenado como JSON string
@@ -373,6 +387,6 @@ function sendWhatsApp() {
 }
 
 // Função para abrir carrinho (chamada do header)
-window.openCart = function() {
+window.openCart = function () {
     window.location.href = 'carrinho.html';
 };

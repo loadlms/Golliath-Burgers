@@ -1,7 +1,7 @@
 // Script para animar elementos quando eles entram no viewport
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM loaded'); // Debug log
-    
+
     // Inicializar controle de atualização
     try {
         window.lastUpdateCheck = localStorage.getItem('lastUpdate') || null;
@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth scroll para links de navegação
     const headerNavLinks = document.querySelectorAll('header nav a[href^="#"]');
     const footerLinks = document.querySelectorAll('footer .footer-links a[href^="#"]');
-    
-    const smoothScroll = function(e) {
+
+    const smoothScroll = function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
         const targetElement = document.querySelector(targetId);
-        
+
         if (targetElement) {
             window.scrollTo({
                 top: targetElement.offsetTop - 90,
@@ -30,19 +30,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     };
-    
+
     headerNavLinks.forEach(link => {
         link.addEventListener('click', smoothScroll);
     });
-    
+
     footerLinks.forEach(link => {
         link.addEventListener('click', smoothScroll);
     });
-    
+
     // Header com efeito ao rolar
     const header = document.querySelector('header');
-    
-    window.addEventListener('scroll', function() {
+
+    window.addEventListener('scroll', function () {
         if (window.scrollY > 100) {
             header.style.padding = '10px 5%';
             header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
         }
     });
-    
+
     // Animação de efeito de queijo derretendo (apenas para demonstração visual)
     const cheeseElement = document.querySelector('.cheese-animation');
     if (cheeseElement) {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth scroll for hero CTA button
     const heroCTA = document.querySelector('.hero-content .cta-button');
     if (heroCTA) {
-        heroCTA.addEventListener('click', function(e) {
+        heroCTA.addEventListener('click', function (e) {
             e.preventDefault();
             const menuSection = document.getElementById('menu');
             if (menuSection) {
@@ -85,14 +85,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Cache-Control': 'no-cache'
                 }
             });
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const responseData = await response.json();
             console.log('Resposta da API:', responseData);
-            
+
             // Extrair o array do cardápio da resposta
             let cardapioData;
             console.log('🔍 Verificando formato da resposta:', {
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 isCardapioArray: responseData && responseData.cardapio && Array.isArray(responseData.cardapio),
                 isResponseArray: Array.isArray(responseData)
             });
-            
+
             if (responseData && responseData.cardapio && Array.isArray(responseData.cardapio)) {
                 console.log('✅ Extraindo cardápio do objeto resposta');
                 cardapioData = responseData.cardapio;
@@ -111,12 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('❌ Formato de resposta inválido:', responseData);
                 throw new Error('Formato de resposta da API inválido');
             }
-            
+
             console.log('Cardápio extraído com sucesso:', cardapioData);
             console.log('Tipo do cardápio:', typeof cardapioData);
             console.log('É array?', Array.isArray(cardapioData));
             console.log('Número de itens no cardápio:', cardapioData.length);
-            
+
             // Aplicar overrides locais antes de exibir
             const cardapioWithOverrides = applyLocalOverrides(cardapioData);
             displayCardapioFromAPI(cardapioWithOverrides);
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
             isUndefined: cardapio === undefined,
             constructor: cardapio?.constructor?.name
         });
-        
+
         const menuGrid = document.querySelector('.menu-grid');
         if (!menuGrid) {
             console.error('❌ menuGrid não encontrado, tentando novamente em 100ms...');
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Atualizar funcionalidade do botão expandir
         setupExpandButton();
-        
+
         // Aguardar um pouco para garantir que os elementos foram renderizados
         setTimeout(() => {
             // Configurar event listeners para botões de adicionar ao carrinho
@@ -264,26 +264,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar event listeners para botões de adicionar ao carrinho
     function setupCartButtons() {
         console.log('Configurando botões do carrinho...');
-        
+
         // Verificar se há botões disponíveis
         const buttons = document.querySelectorAll('.add-to-cart-btn');
         console.log('Botões encontrados:', buttons.length);
-        
-        document.addEventListener('click', function(e) {
+
+        document.addEventListener('click', function (e) {
             console.log('Click detectado:', e.target);
-            
+
             if (e.target.closest('.add-to-cart-btn')) {
                 console.log('Click em botão do carrinho detectado');
                 const button = e.target.closest('.add-to-cart-btn');
-                
+
                 try {
                     const id = parseInt(button.dataset.id);
                     const nome = button.dataset.nome.replace(/&quot;/g, '"');
                     const preco = parseFloat(button.dataset.preco);
                     const imagem = button.dataset.imagem.replace(/&quot;/g, '"');
-                    
+
                     console.log('Dados do produto:', { id, nome, preco, imagem });
-                    
+
                     if (typeof addToCart === 'function') {
                         addToCart(id, nome, preco, imagem);
                     } else {
@@ -300,15 +300,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupExpandButton() {
         const expandButton = document.getElementById('expand-menu');
         const additionalMenuItems = document.querySelectorAll('.additional-menu');
-        
+
         if (expandButton && additionalMenuItems.length > 0) {
             let isExpanded = false;
 
-            expandButton.addEventListener('click', function(e) {
+            expandButton.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 isExpanded = !isExpanded;
-                
+
                 additionalMenuItems.forEach(item => {
                     if (isExpanded) {
                         item.style.display = 'block';
@@ -340,12 +340,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     // Função para adicionar item ao carrinho
-    window.addToCart = function(id, nome, preco, imagem) {
+    window.addToCart = function (id, nome, preco, imagem) {
         console.log('addToCart chamada com:', { id, nome, preco, imagem });
-        
+
         try {
             const existingItem = cart.find(item => item.id === id);
-            
+
             if (existingItem) {
                 existingItem.quantity += 1;
                 console.log('Item existente atualizado:', existingItem);
@@ -360,10 +360,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 cart.push(newItem);
                 console.log('Novo item adicionado:', newItem);
             }
-            
+
             localStorage.setItem('cart', JSON.stringify(cart));
             console.log('Carrinho salvo no localStorage:', cart);
-            
+
             updateCartDisplay();
             showCartMessage('Item adicionado ao carrinho!');
         } catch (error) {
@@ -371,26 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Função para remover item do carrinho
-    window.removeFromCart = function(id) {
-        cart = cart.filter(item => item.id !== id);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartDisplay();
-    };
 
-    // Função para atualizar quantidade
-    window.updateQuantity = function(id, change) {
-        const item = cart.find(item => item.id === id);
-        if (item) {
-            item.quantity += change;
-            if (item.quantity <= 0) {
-                removeFromCart(id);
-            } else {
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartDisplay();
-            }
-        }
-    };
 
     // Função para calcular total do carrinho
     function getCartTotal() {
@@ -402,14 +383,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
         const cartIcon = document.getElementById('cart-icon');
         const cartCountMobile = document.querySelector('.cart-count-mobile');
-        
+
         if (cartIcon) {
             cartIcon.innerHTML = `
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-count">${cartCount}</span>
             `;
         }
-        
+
         if (cartCountMobile) {
             cartCountMobile.textContent = cartCount;
         }
@@ -429,9 +410,9 @@ document.addEventListener('DOMContentLoaded', function() {
         messageEl.style.borderRadius = '5px';
         messageEl.style.zIndex = '1000';
         messageEl.style.animation = 'slideIn 0.3s ease';
-        
+
         document.body.appendChild(messageEl);
-        
+
         setTimeout(() => {
             messageEl.remove();
         }, 2000);
@@ -440,21 +421,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Versão do cache para forçar atualização
     const CACHE_VERSION = 'v' + Date.now();
     window.GOLLIATH_CACHE_VERSION = CACHE_VERSION;
-    
+
     // Log de versão para debug
     console.log('Golliath Burgers - Cache Version:', CACHE_VERSION);
-    
+
     // Carregar cardápio quando a página carregar
     loadCardapioFromAPI();
-    
+
     // Carregar informações do site dinamicamente
     loadSiteInfoFromAPI();
-    
+
     // Atualizar display do carrinho
     updateCartDisplay();
 
     // Listener para detectar mudanças no cardápio
-    window.addEventListener('message', function(event) {
+    window.addEventListener('message', function (event) {
         console.log('📨 Mensagem recebida:', event.data);
         if (event.data.type === 'CARDAPIO_UPDATED') {
             console.log('🔄 Atualizando cardápio após notificação do admin...');
@@ -462,11 +443,11 @@ document.addEventListener('DOMContentLoaded', function() {
             loadSiteInfoFromAPI();
         }
     });
-    
+
     // Listener para BroadcastChannel
     try {
         const bc = new BroadcastChannel('cardapio-updates');
-        bc.addEventListener('message', function(event) {
+        bc.addEventListener('message', function (event) {
             console.log('📡 Mensagem recebida via BroadcastChannel:', event.data);
             if (event.data && event.data.type === 'CARDAPIO_UPDATED') {
                 console.log('🔄 Atualizando cardápio via BroadcastChannel');
@@ -505,11 +486,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Botão de atualização manual
     const refreshButton = document.getElementById('refresh-menu');
     if (refreshButton) {
-        refreshButton.addEventListener('click', function() {
+        refreshButton.addEventListener('click', function () {
             this.style.transform = 'rotate(360deg)';
             loadCardapioFromAPI();
             loadSiteInfoFromAPI();
-            
+
             setTimeout(() => {
                 this.style.transform = 'rotate(0deg)';
             }, 1000);
@@ -523,11 +504,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Adicionar cache-busting para garantir dados atualizados
             const timestamp = new Date().getTime();
             const response = await fetch(`/api/siteinfo?_t=${timestamp}`);
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const siteInfo = await response.json();
             console.log('Informações do site carregadas com sucesso:', siteInfo);
             updateSiteInfo(siteInfo);
@@ -585,7 +566,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Função para abrir carrinho (chamada do header)
-    window.openCart = function() {
+    window.openCart = function () {
         window.location.href = 'carrinho.html';
     };
 
@@ -632,32 +613,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Função para abrir carrinho
-    window.openCart = function() {
+    window.openCart = function () {
         window.location.href = 'carrinho.html';
     };
 
     // Funções do menu mobile
-    window.toggleMobileMenu = function() {
+    window.toggleMobileMenu = function () {
         const nav = document.getElementById('mobile-nav');
         const toggle = document.querySelector('.mobile-menu-toggle');
-        
+
         nav.classList.toggle('active');
         toggle.classList.toggle('active');
     };
 
-    window.closeMobileMenu = function() {
+    window.closeMobileMenu = function () {
         const nav = document.getElementById('mobile-nav');
         const toggle = document.querySelector('.mobile-menu-toggle');
-        
+
         nav.classList.remove('active');
         toggle.classList.remove('active');
     };
 
     // Fechar menu ao clicar fora
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         const nav = document.getElementById('mobile-nav');
         const toggle = document.querySelector('.mobile-menu-toggle');
-        
+
         if (!nav.contains(e.target) && !toggle.contains(e.target)) {
             nav.classList.remove('active');
             toggle.classList.remove('active');
@@ -665,11 +646,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Fechar menu ao redimensionar janela
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         if (window.innerWidth > 768) {
             const nav = document.getElementById('mobile-nav');
             const toggle = document.querySelector('.mobile-menu-toggle');
-            
+
             nav.classList.remove('active');
             toggle.classList.remove('active');
         }
@@ -687,7 +668,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.warn('⚠️ generateCardapioHash: cardapio não é array:', typeof cardapio);
             return null;
         }
-        
+
         const sortedItems = cardapio.map(item => {
             // Garantir valores consistentes para o hash
             const id = item.id || 0;
@@ -695,14 +676,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const disponivel = item.disponivel !== false; // true se não definido ou true
             return `${id}-${isActive}-${disponivel}`;
         }).sort();
-        
+
         const hash = sortedItems.join('|');
         console.log('🔧 Hash gerado:', {
             itemCount: cardapio.length,
             hash: hash.substring(0, 50) + (hash.length > 50 ? '...' : ''),
             fullHash: hash
         });
-        
+
         return hash;
     }
 
@@ -715,18 +696,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Cache-Control': 'no-cache'
                 }
             });
-            
+
             if (response.ok) {
                 const data = await response.json();
                 const currentCardapioHash = generateCardapioHash(data.cardapio);
-                
+
                 console.log('🔍 Verificação de atualização:', {
                     isFirstCheck,
                     lastHash: lastCardapioHash,
                     currentHash: currentCardapioHash,
                     hashChanged: currentCardapioHash !== lastCardapioHash
                 });
-                
+
                 // Se é a primeira verificação, apenas armazena os valores
                 if (isFirstCheck) {
                     lastCacheKey = data.cacheKey;
@@ -735,13 +716,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('✅ Primeira verificação concluída, hash armazenado');
                     return;
                 }
-                
+
                 // Verificar se houve mudança real no conteúdo do cardápio
                 if (currentCardapioHash !== lastCardapioHash) {
                     console.log('🔄 Atualização real detectada! Recarregando cardápio...');
                     lastCacheKey = data.cacheKey;
                     lastCardapioHash = currentCardapioHash;
-                    
+
                     // Aplicar overrides antes de exibir
                     const cardapioWithOverrides = applyLocalOverrides(data.cardapio);
                     displayCardapioFromAPI(cardapioWithOverrides);
@@ -774,7 +755,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Limpar polling ao sair da página
-    window.addEventListener('beforeunload', function() {
+    window.addEventListener('beforeunload', function () {
         if (pollingInterval) {
             clearInterval(pollingInterval);
         }
@@ -783,7 +764,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Sistema de sincronização baseado em hash
     let currentDataHash = null;
     let syncInterval = null;
-    
+
     async function checkForDataChanges() {
         try {
             const response = await fetch('/api/cardapio/sync');
@@ -791,9 +772,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.warn('Erro ao verificar sincronização:', response.status);
                 return;
             }
-            
+
             const syncData = await response.json();
-            
+
             if (syncData.success && syncData.hash) {
                 // Se é a primeira verificação, apenas armazenar o hash
                 if (currentDataHash === null) {
@@ -801,12 +782,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('🔧 Hash inicial do cardápio:', currentDataHash);
                     return;
                 }
-                
+
                 // Se o hash mudou, recarregar o cardápio
                 if (currentDataHash !== syncData.hash) {
                     console.log('🔄 Mudança detectada no cardápio! Recarregando...');
                     currentDataHash = syncData.hash;
-                    
+
                     // Recarregar dados do cardápio
                     const cardapioResponse = await fetch('/api/cardapio');
                     if (cardapioResponse.ok) {
@@ -823,145 +804,145 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Erro na sincronização:', error);
         }
     }
-    
+
     // Cache local para alterações do admin
-     let localCardapioOverrides = {};
-     
-     // Carregar overrides salvos do localStorage
-     try {
-         const savedOverrides = localStorage.getItem('cardapioOverrides');
-         if (savedOverrides) {
-             localCardapioOverrides = JSON.parse(savedOverrides);
-             console.log('🔧 Carregados overrides do cardápio:', localCardapioOverrides);
-         }
-     } catch (error) {
-         console.error('Erro ao carregar overrides:', error);
-     }
-     
-     // Função para aplicar overrides locais ao cardápio
-     function applyLocalOverrides(cardapio) {
-         if (!cardapio || Object.keys(localCardapioOverrides).length === 0) {
-             return cardapio;
-         }
-         
-         return cardapio.map(item => {
-             const override = localCardapioOverrides[item.id];
-             if (override) {
-                 return { ...item, ...override };
-             }
-             return item;
-         }).filter(item => {
-             // Filtrar itens desativados
-             return item.isActive !== false && item.disponivel !== false;
-         });
-     }
-     
-     // Sistema de comunicação via localStorage
-      function handleStorageChange(event) {
-          console.log('🔍 Storage change detectado:', {
-              key: event.key,
-              newValue: event.newValue,
-              oldValue: event.oldValue,
-              url: event.url
-          });
-          
-          if (event.key === 'cardapioUpdateNotification' && event.newValue) {
-              try {
-                  const notification = JSON.parse(event.newValue);
-                  console.log('📨 Notificação recebida:', notification);
-                  
-                  if (notification.type === 'CARDAPIO_UPDATED' && notification.source === 'admin') {
-                      console.log('🔄 Recebida notificação de atualização do admin via localStorage');
-                      
-                      // Verificar se há dados de alteração específica
-                      if (notification.itemChanges) {
-                          // Aplicar mudanças específicas ao cache local
-                          Object.assign(localCardapioOverrides, notification.itemChanges);
-                          localStorage.setItem('cardapioOverrides', JSON.stringify(localCardapioOverrides));
-                          console.log('📝 Aplicadas mudanças locais:', notification.itemChanges);
-                      }
-                      
-                      // Recarregar cardápio imediatamente
-                      setTimeout(async () => {
-                          try {
-                              console.log('🔄 Recarregando cardápio devido a notificação do admin...');
-                              const response = await fetch('/api/cardapio');
-                              if (response.ok) {
-                                  const data = await response.json();
-                                  if (data.success) {
-                                      const cardapioWithOverrides = applyLocalOverrides(data.cardapio);
-                                      displayCardapioFromAPI(cardapioWithOverrides);
-                                      showMessage('Cardápio atualizado pelo admin!', 'success');
-                                  }
-                              }
-                          } catch (error) {
-                              console.error('Erro ao recarregar cardápio:', error);
-                          }
-                      }, 500);
-                  } else {
-                      console.log('📨 Notificação ignorada:', notification);
-                  }
-              } catch (error) {
-                  console.error('Erro ao processar notificação do localStorage:', error);
-              }
-          }
-      }
-     
-     // Listener para mudanças no localStorage (comunicação entre abas)
-     window.addEventListener('storage', handleStorageChange);
-     
-     // Polling para detectar mudanças na mesma aba (storage event não funciona na mesma aba)
-     let lastNotificationCheck = localStorage.getItem('cardapioUpdateNotification');
-     setInterval(() => {
-         const currentNotification = localStorage.getItem('cardapioUpdateNotification');
-         if (currentNotification && currentNotification !== lastNotificationCheck) {
-             console.log('🔍 Detectada mudança no localStorage via polling');
-             handleStorageChange({
-                 key: 'cardapioUpdateNotification',
-                 newValue: currentNotification,
-                 oldValue: lastNotificationCheck
-             });
-             lastNotificationCheck = currentNotification;
-         }
-     }, 5000); // Verificar a cada 5 segundos para reduzir spam
-     
-     // Listener para mensagens via postMessage
-     window.addEventListener('message', function(event) {
-         if (event.data && event.data.type === 'CARDAPIO_UPDATED') {
-             console.log('🔄 Recebida notificação de atualização via postMessage');
-             
-             setTimeout(async () => {
-                 try {
-                     const response = await fetch('/api/cardapio');
-                     if (response.ok) {
-                         const data = await response.json();
-                         if (data.success) {
-                             displayCardapioFromAPI(data.cardapio);
-                             showMessage('Cardápio atualizado pelo admin!', 'success');
-                         }
-                     }
-                 } catch (error) {
-                     console.error('Erro ao recarregar cardápio:', error);
-                 }
-             }, 500);
-         }
-     });
-     
-     // Iniciar sincronização apenas na página principal
-     if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-         // Primeira verificação após 3 segundos
-         setTimeout(() => {
-             checkForDataChanges();
-             // Depois verificar a cada 10 segundos
-             // syncInterval = setInterval(checkForDataChanges, 10000); // DESABILITADO TEMPORARIAMENTE
-         }, 3000);
-         
-         // Limpar sincronização ao sair da página
-         window.addEventListener('beforeunload', function() {
-             if (syncInterval) {
-                 clearInterval(syncInterval);
-             }
-         });
-     }
+    let localCardapioOverrides = {};
+
+    // Carregar overrides salvos do localStorage
+    try {
+        const savedOverrides = localStorage.getItem('cardapioOverrides');
+        if (savedOverrides) {
+            localCardapioOverrides = JSON.parse(savedOverrides);
+            console.log('🔧 Carregados overrides do cardápio:', localCardapioOverrides);
+        }
+    } catch (error) {
+        console.error('Erro ao carregar overrides:', error);
+    }
+
+    // Função para aplicar overrides locais ao cardápio
+    function applyLocalOverrides(cardapio) {
+        if (!cardapio || Object.keys(localCardapioOverrides).length === 0) {
+            return cardapio;
+        }
+
+        return cardapio.map(item => {
+            const override = localCardapioOverrides[item.id];
+            if (override) {
+                return { ...item, ...override };
+            }
+            return item;
+        }).filter(item => {
+            // Filtrar itens desativados
+            return item.isActive !== false && item.disponivel !== false;
+        });
+    }
+
+    // Sistema de comunicação via localStorage
+    function handleStorageChange(event) {
+        console.log('🔍 Storage change detectado:', {
+            key: event.key,
+            newValue: event.newValue,
+            oldValue: event.oldValue,
+            url: event.url
+        });
+
+        if (event.key === 'cardapioUpdateNotification' && event.newValue) {
+            try {
+                const notification = JSON.parse(event.newValue);
+                console.log('📨 Notificação recebida:', notification);
+
+                if (notification.type === 'CARDAPIO_UPDATED' && notification.source === 'admin') {
+                    console.log('🔄 Recebida notificação de atualização do admin via localStorage');
+
+                    // Verificar se há dados de alteração específica
+                    if (notification.itemChanges) {
+                        // Aplicar mudanças específicas ao cache local
+                        Object.assign(localCardapioOverrides, notification.itemChanges);
+                        localStorage.setItem('cardapioOverrides', JSON.stringify(localCardapioOverrides));
+                        console.log('📝 Aplicadas mudanças locais:', notification.itemChanges);
+                    }
+
+                    // Recarregar cardápio imediatamente
+                    setTimeout(async () => {
+                        try {
+                            console.log('🔄 Recarregando cardápio devido a notificação do admin...');
+                            const response = await fetch('/api/cardapio');
+                            if (response.ok) {
+                                const data = await response.json();
+                                if (data.success) {
+                                    const cardapioWithOverrides = applyLocalOverrides(data.cardapio);
+                                    displayCardapioFromAPI(cardapioWithOverrides);
+                                    showMessage('Cardápio atualizado pelo admin!', 'success');
+                                }
+                            }
+                        } catch (error) {
+                            console.error('Erro ao recarregar cardápio:', error);
+                        }
+                    }, 500);
+                } else {
+                    console.log('📨 Notificação ignorada:', notification);
+                }
+            } catch (error) {
+                console.error('Erro ao processar notificação do localStorage:', error);
+            }
+        }
+    }
+
+    // Listener para mudanças no localStorage (comunicação entre abas)
+    window.addEventListener('storage', handleStorageChange);
+
+    // Polling para detectar mudanças na mesma aba (storage event não funciona na mesma aba)
+    let lastNotificationCheck = localStorage.getItem('cardapioUpdateNotification');
+    setInterval(() => {
+        const currentNotification = localStorage.getItem('cardapioUpdateNotification');
+        if (currentNotification && currentNotification !== lastNotificationCheck) {
+            console.log('🔍 Detectada mudança no localStorage via polling');
+            handleStorageChange({
+                key: 'cardapioUpdateNotification',
+                newValue: currentNotification,
+                oldValue: lastNotificationCheck
+            });
+            lastNotificationCheck = currentNotification;
+        }
+    }, 5000); // Verificar a cada 5 segundos para reduzir spam
+
+    // Listener para mensagens via postMessage
+    window.addEventListener('message', function (event) {
+        if (event.data && event.data.type === 'CARDAPIO_UPDATED') {
+            console.log('🔄 Recebida notificação de atualização via postMessage');
+
+            setTimeout(async () => {
+                try {
+                    const response = await fetch('/api/cardapio');
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.success) {
+                            displayCardapioFromAPI(data.cardapio);
+                            showMessage('Cardápio atualizado pelo admin!', 'success');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Erro ao recarregar cardápio:', error);
+                }
+            }, 500);
+        }
+    });
+
+    // Iniciar sincronização apenas na página principal
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+        // Primeira verificação após 3 segundos
+        setTimeout(() => {
+            checkForDataChanges();
+            // Depois verificar a cada 10 segundos
+            // syncInterval = setInterval(checkForDataChanges, 10000); // DESABILITADO TEMPORARIAMENTE
+        }, 3000);
+
+        // Limpar sincronização ao sair da página
+        window.addEventListener('beforeunload', function () {
+            if (syncInterval) {
+                clearInterval(syncInterval);
+            }
+        });
+    }
 
 });

@@ -7,7 +7,6 @@
     "dev": "nodemon backend/server.js"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.57.4",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
@@ -17,8 +16,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "puppeteer": "^24.22.0",
-    "sequelize": "^6.35.0",
-    "sqlite3": "^5.1.6"
+    "sequelize": "^6.35.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

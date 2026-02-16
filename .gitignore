@@ -1,2 +1,10 @@
 /Teste_HUB_XP.pdf
 .vercel
+node_modules/
+.env
+.env.*
+*.log
+dist/
+build/
+backend/config.env
+.DS_Store
